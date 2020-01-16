@@ -8,12 +8,15 @@ import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
 
+import com.c4soft.tests.skazy.ProblemSolver;
+
 @Service
-public class BruteForceBoaLocProblemSolutionFinder {
+public class BruteForceBoaLocProblemSolutionFinder implements ProblemSolver {
 
 	static final int EXPECTED_RESULT = 66;
 	static final double MAX_DELTA = 0.01;
 
+	@Override
 	public Collection<Solution> solve(Problem problem) {
 		final Collection<Solution> solutions = new HashSet<>();
 

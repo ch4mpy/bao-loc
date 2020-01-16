@@ -1,0 +1,37 @@
+package com.c4soft.tests.skazy.domain;
+
+import java.util.Collection;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.c4soft.tests.skazy.ProblemSolver;
+import com.c4soft.tests.skazy.persistence.SolutionRepository;
+
+@Service
+public class ProblemServiceImpl implements ProblemService {
+
+	private final Problem problem;
+
+	private final ProblemSolver solver;
+
+	private final SolutionRepository solutionRepo;
+
+	@Autowired
+	public ProblemServiceImpl(Problem problem, ProblemSolver solver, SolutionRepository solutionRepo) {
+		super();
+		this.problem = problem;
+		this.solver = solver;
+		this.solutionRepo = solutionRepo;
+	}
+
+	@Override
+	public Iterable<Solution> getSolutions() {
+		if (solutionRepo.count() == 0) {
+			final Collection<Solution> solutions = solver.solve(problem);
+			return solutionRepo.saveAll(solutions);
+		}
+		return solutionRepo.findAll();
+	}
+
+}

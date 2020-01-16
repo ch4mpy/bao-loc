@@ -2,25 +2,34 @@ package com.c4soft.tests.skazy.domain;
 
 import java.util.Objects;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+
+@Entity
 public class Solution {
 
-	private final long x1;
+	@Id
+	@GeneratedValue
+	private Long id;
 
-	private final long x2;
+	private final Long x1;
 
-	private final long x3;
+	private final Long x2;
 
-	private final long x4;
+	private final Long x3;
 
-	private final long x5;
+	private final Long x4;
 
-	private final long x6;
+	private final Long x5;
 
-	private final long x7;
+	private final Long x6;
 
-	private final long x8;
+	private final Long x7;
 
-	private final long x9;
+	private final Long x8;
+
+	private final Long x9;
 
 	public Solution(long x1, long x2, long x3, long x4, long x5, long x6, long x7, long x8, long x9) {
 		super();
@@ -33,6 +42,27 @@ public class Solution {
 		this.x7 = x7;
 		this.x8 = x8;
 		this.x9 = x9;
+	}
+
+	Solution() {
+		super();
+		this.x1 = null;
+		this.x2 = null;
+		this.x3 = null;
+		this.x4 = null;
+		this.x5 = null;
+		this.x6 = null;
+		this.x7 = null;
+		this.x8 = null;
+		this.x9 = null;
+	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 	public Long getX1() {
