@@ -8,8 +8,6 @@ import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
 
-import com.c4soft.tests.skazy.ProblemSolver;
-
 @Service
 public class BruteForceBoaLocProblemSolutionFinder implements ProblemSolver {
 

@@ -13,23 +13,23 @@ public class Solution {
 	@GeneratedValue
 	private Long id;
 
-	private final Long x1;
+	private Long x1;
 
-	private final Long x2;
+	private Long x2;
 
-	private final Long x3;
+	private Long x3;
 
-	private final Long x4;
+	private Long x4;
 
-	private final Long x5;
+	private Long x5;
 
-	private final Long x6;
+	private Long x6;
 
-	private final Long x7;
+	private Long x7;
 
-	private final Long x8;
+	private Long x8;
 
-	private final Long x9;
+	private Long x9;
 
 	public Solution(long x1, long x2, long x3, long x4, long x5, long x6, long x7, long x8, long x9) {
 		super();
@@ -99,6 +99,42 @@ public class Solution {
 
 	public Long getX9() {
 		return x9;
+	}
+
+	public void setX1(long x1) {
+		this.x1 = x1;
+	}
+
+	public void setX2(long x2) {
+		this.x2 = x2;
+	}
+
+	public void setX3(long x3) {
+		this.x3 = x3;
+	}
+
+	public void setX4(long x4) {
+		this.x4 = x4;
+	}
+
+	public void setX5(long x5) {
+		this.x5 = x5;
+	}
+
+	public void setX6(long x6) {
+		this.x6 = x6;
+	}
+
+	public void setX7(long x7) {
+		this.x7 = x7;
+	}
+
+	public void setX8(long x8) {
+		this.x8 = x8;
+	}
+
+	public void setX9(long x9) {
+		this.x9 = x9;
 	}
 
 	@Override

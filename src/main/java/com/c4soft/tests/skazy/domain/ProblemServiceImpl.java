@@ -3,9 +3,10 @@ package com.c4soft.tests.skazy.domain;
 import java.util.Collection;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import com.c4soft.tests.skazy.ProblemSolver;
 import com.c4soft.tests.skazy.persistence.SolutionRepository;
 
 @Service
@@ -26,12 +27,12 @@ public class ProblemServiceImpl implements ProblemService {
 	}
 
 	@Override
-	public Iterable<Solution> getSolutions() {
+	public Page<Solution> getSolutions(Pageable pageable) {
 		if (solutionRepo.count() == 0) {
 			final Collection<Solution> solutions = solver.solve(problem);
-			return solutionRepo.saveAll(solutions);
+			solutionRepo.saveAll(solutions);
 		}
-		return solutionRepo.findAll();
+		return solutionRepo.findAll(pageable);
 	}
 
 }
