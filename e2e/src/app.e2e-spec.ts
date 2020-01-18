@@ -10,7 +10,7 @@ describe('workspace-project App', () => {
 
   it('should display welcome message', () => {
     page.navigateTo();
-    expect(page.getTitleText()).toEqual('ui app is running!');
+    expect(page.getTitleText()).toEqual('Tests des compétences de Jérôme Wacongne par Skazy');
   });
 
   afterEach(async () => {

@@ -58,9 +58,9 @@ class BaoLocProblemTest {
 	}
 
 	@Test
-	void whenValuesAre642359187ThenComputedValueIsCloseTo66() {
-		final var actual = new BaoLocProblem().computeValue(new Solution(6, 4, 2, 3, 5, 9, 1, 8, 7));
-		assertEquals(66, actual, 0.000001);
+	void whenValuesAre148279356ThenComputedValueIs66() {
+		final var actual = new BaoLocProblem().computeValue(new Solution(1, 4, 8, 2, 7, 9, 3, 5, 6));
+		assertEquals(66.0, actual, 0.000001);
 	}
 
 	@Test
