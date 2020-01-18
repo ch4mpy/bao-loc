@@ -45,7 +45,7 @@ node/
 *.sublime-workspace
 
 # IDE - VSCode
-.vscode/*
+.vscode/
 !.vscode/settings.json
 !.vscode/tasks.json
 !.vscode/launch.json
@@ -59,6 +59,7 @@ node/
 npm-debug.log
 testem.log
 /typings
+.attach_pid*
 
 # e2e
 /e2e/*.map
