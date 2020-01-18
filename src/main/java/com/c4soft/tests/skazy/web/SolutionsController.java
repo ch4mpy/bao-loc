@@ -25,7 +25,7 @@ import com.sun.istack.NotNull;
 
 @RestController
 @RequestMapping("/solutions")
-public class ProblemController {
+public class SolutionsController {
 
 	private final ProblemService pbService;
 	private final SolutionResponseAssembler solutionAssembler;
@@ -33,7 +33,7 @@ public class ProblemController {
 	private final SolutionRepository solutionRepo;
 	private final Problem problem;
 
-	public ProblemController(
+	public SolutionsController(
 			ProblemService pbService,
 			SolutionResponseAssembler solutionAssembler,
 			PagedResourcesAssembler<Solution> solutionPageAssembler,
@@ -109,7 +109,7 @@ public class ProblemController {
 			RepresentationModelAssemblerSupport<Solution, SolutionResponse> {
 
 		public SolutionResponseAssembler() {
-			super(ProblemController.class, SolutionResponse.class);
+			super(SolutionsController.class, SolutionResponse.class);
 		}
 
 		@Override

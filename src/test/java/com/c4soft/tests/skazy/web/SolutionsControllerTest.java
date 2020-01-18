@@ -40,9 +40,9 @@ import com.c4soft.tests.skazy.persistence.SolutionRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 @ExtendWith(SpringExtension.class)
-@WebMvcTest(value = ProblemController.class)
+@WebMvcTest(value = SolutionsController.class)
 @AutoConfigureRestDocs
-class ProblemControllerTest {
+class SolutionsControllerTest {
 	final List<Solution> savedSolutions =
 			List.of(new Solution(6, 4, 2, 3, 5, 9, 1, 8, 7), new Solution(8, 2, 1, 3, 4, 5, 9, 6, 7));
 
