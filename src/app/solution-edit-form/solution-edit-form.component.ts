@@ -12,22 +12,22 @@ import { SolutionService, SolutionUpdateRequest } from '../solution.service';
       	<!--row 1-->
 	      <mat-grid-tile class="problem-cell">
 	        <mat-form-field required >
-	          <input matInput type="number" matInput formControlName="x1" class="tile-text">
-	          <mat-error *ngIf="solutionForm.get('x1').invalid" class="tile-text">{{solutionForm.get('x1').errors | json}}</mat-error>
+	          <input matInput type="number" matInput formControlName="x1" tabindex="1">
+	          <mat-error *ngIf="solutionForm.get('x1').invalid">{{solutionForm.get('x1').errors | json}}</mat-error>
 	        </mat-form-field>
 	      </mat-grid-tile>
 	      <mat-grid-tile></mat-grid-tile>
 	      <mat-grid-tile class="problem-cell">
 		      <mat-form-field required>
-		        <input matInput type="number" matInput formControlName="x5" class="tile-text">
-		        <mat-error *ngIf="solutionForm.get('x5').invalid" class="tile-text">{{solutionForm.get('x5').errors | json}}</mat-error>
+		        <input matInput type="number" matInput formControlName="x5" tabindex="5">
+		        <mat-error *ngIf="solutionForm.get('x5').invalid">{{solutionForm.get('x5').errors | json}}</mat-error>
 		      </mat-form-field>
 	      </mat-grid-tile>
 	      <mat-grid-tile class="problem-cell"><b>-</b></mat-grid-tile>
 	      <mat-grid-tile class="problem-cell">
 		      <mat-form-field required>
-		        <input matInput type="number" matInput formControlName="x6" class="tile-text">
-		        <mat-error *ngIf="solutionForm.get('x6').invalid" class="tile-text">{{solutionForm.get('x6').errors | json}}</mat-error>
+		        <input matInput type="number" matInput formControlName="x6" tabindex="6">
+		        <mat-error *ngIf="solutionForm.get('x6').invalid">{{solutionForm.get('x6').errors | json}}</mat-error>
 		      </mat-form-field>
 	      </mat-grid-tile>
 	      <mat-grid-tile></mat-grid-tile>
@@ -59,37 +59,37 @@ import { SolutionService, SolutionUpdateRequest } from '../solution.service';
 	    <!--row 5-->
 	      <mat-grid-tile class="problem-cell">
 		      <mat-form-field required>
-		        <input matInput type="number" matInput formControlName="x2" class="tile-text">
-		        <mat-error *ngIf="solutionForm.get('x2').invalid" class="tile-text">{{solutionForm.get('x2').errors | json}}</mat-error>
+		        <input matInput type="number" matInput formControlName="x2" tabindex="2">
+		        <mat-error *ngIf="solutionForm.get('x2').invalid">{{solutionForm.get('x2').errors | json}}</mat-error>
 		      </mat-form-field>
 	      </mat-grid-tile>
 	      <mat-grid-tile></mat-grid-tile>
 	      <mat-grid-tile class="problem-cell">
 		      <mat-form-field required>
-		        <input matInput type="number" matInput formControlName="x4" class="tile-text">
-		        <mat-error *ngIf="solutionForm.get('x4').invalid" class="tile-text">{{solutionForm.get('x4').errors | json}}</mat-error>
+		        <input matInput type="number" matInput formControlName="x4" tabindex="4">
+		        <mat-error *ngIf="solutionForm.get('x4').invalid">{{solutionForm.get('x4').errors | json}}</mat-error>
 		      </mat-form-field>
 	      </mat-grid-tile>
 	      <mat-grid-tile></mat-grid-tile>
 	      <mat-grid-tile class="problem-cell">
 		      <mat-form-field required>
-		        <input matInput type="number" matInput formControlName="x7" class="tile-text">
-		        <mat-error *ngIf="solutionForm.get('x7').invalid" class="tile-text">{{solutionForm.get('x7').errors | json}}</mat-error>
+		        <input matInput type="number" matInput formControlName="x7" tabindex="7">
+		        <mat-error *ngIf="solutionForm.get('x7').invalid">{{solutionForm.get('x7').errors | json}}</mat-error>
 		      </mat-form-field>
 	      </mat-grid-tile>
 	      <mat-grid-tile></mat-grid-tile>
 	      <mat-grid-tile class="problem-cell">
 		      <mat-form-field required>
-		        <input matInput type="number" matInput formControlName="x9" class="tile-text">
-		        <mat-error *ngIf="solutionForm.get('x9').invalid" class="tile-text">{{solutionForm.get('x9').errors | json}}</mat-error>
+		        <input matInput type="number" matInput formControlName="x9" tabindex="9">
+		        <mat-error *ngIf="solutionForm.get('x9').invalid">{{solutionForm.get('x9').errors | json}}</mat-error>
 		      </mat-form-field>
 	      </mat-grid-tile>
 	    <!--row 6-->
 	      <mat-grid-tile class="problem-cell"><b>/</b></mat-grid-tile>
 	      <mat-grid-tile class="problem-cell">
 		      <mat-form-field required>
-		        <input matInput type="number" matInput formControlName="x3" class="tile-text">
-		        <mat-error *ngIf="solutionForm.get('x3').invalid" class="tile-text">{{solutionForm.get('x3').errors | json}}</mat-error>
+		        <input matInput type="number" matInput formControlName="x3" tabindex="3">
+		        <mat-error *ngIf="solutionForm.get('x3').invalid">{{solutionForm.get('x3').errors | json}}</mat-error>
 		      </mat-form-field>
 	      </mat-grid-tile>
 	      <mat-grid-tile class="problem-cell"><b>+</b></mat-grid-tile>
@@ -97,8 +97,8 @@ import { SolutionService, SolutionUpdateRequest } from '../solution.service';
 	      <mat-grid-tile class="problem-cell"><b>*</b></mat-grid-tile>
 	      <mat-grid-tile class="problem-cell">
 		      <mat-form-field required>
-		        <input matInput type="number" matInput formControlName="x8" class="tile-text">
-		        <mat-error *ngIf="solutionForm.get('x8').invalid" class="tile-text">{{solutionForm.get('x8').errors | json}}</mat-error>
+		        <input matInput type="number" matInput formControlName="x8" tabindex="8">
+		        <mat-error *ngIf="solutionForm.get('x8').invalid">{{solutionForm.get('x8').errors | json}}</mat-error>
 		      </mat-form-field>
 	      </mat-grid-tile>
 	      <mat-grid-tile class="problem-cell"><b>/</b></mat-grid-tile>
@@ -109,7 +109,11 @@ import { SolutionService, SolutionUpdateRequest } from '../solution.service';
       <mat-error *ngIf="solutionForm.errors">{{solutionForm.errors | json}}</mat-error>
     </form>
   `,
-  styles: ['.problem-cell { border: solid 2px #000; } .tile-text { text-align: center; } .bao-loc-grid { margin-left: 10px; margin-right: 10px; }']
+  styles: [
+    '.problem-cell { border: solid 2px #000; }',
+    'input { text-align: center; }',
+    '.bao-loc-grid { display: block; mx-width: 510px; margin-left: 10px; margin-right: 10px; }',
+    'mat-form-field { width: 60px; }']
 })
 export class SolutionEditFormComponent implements OnInit, OnDestroy {
 
