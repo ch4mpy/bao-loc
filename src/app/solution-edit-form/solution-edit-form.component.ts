@@ -112,7 +112,7 @@ import { SolutionService, SolutionUpdateRequest } from '../solution.service';
   styles: [
     '.problem-cell { border: solid 2px #000; }',
     'input { text-align: center; }',
-    '.bao-loc-grid { display: block; mx-width: 510px; margin-left: 10px; margin-right: 10px; }',
+    '.bao-loc-grid { display: block; max-width: 510px; margin-left: 10px; margin-right: 10px; }',
     'mat-form-field { width: 60px; }']
 })
 export class SolutionEditFormComponent implements OnInit, OnDestroy {
@@ -170,7 +170,6 @@ export class SolutionEditFormComponent implements OnInit, OnDestroy {
       }
 
       for (let i = 1; i < 9; ++i) {
-        group.get('x' + i).setErrors(null);
         for (let j = i + 1; j < 10; ++j) {
           if (group.get('x' + i).value === group.get('x' + j).value) {
             group.get('x' + i).setErrors({ notDistinct: true });
