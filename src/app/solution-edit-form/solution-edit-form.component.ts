@@ -203,7 +203,7 @@ export class SolutionEditFormComponent implements OnInit, OnDestroy {
     return (group: FormGroup): ValidationErrors => {
       const errors = {};
 
-      if (this.result(group) !== 66) {
+      if (Math.abs(this.result(group) - 66) > 1.0e-9) {
         errors['badResult'] = true;
       }
 
