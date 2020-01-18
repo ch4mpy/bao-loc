@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { PageMeta } from '../page';
 import { SolutionResponse, SolutionService } from '../solution.service';
 
@@ -16,7 +17,7 @@ import { SolutionResponse, SolutionService } from '../solution.service';
           <mat-icon>first_page</mat-icon>
       </button>
       <button mat-icon-button fxFlex (click)="prevPage()"><mat-icon>chevron_left</mat-icon></button>
-      <span fxFlex fxLayoutAlign="center">{{(pageMeta$ | async).number}} / {{(pageMeta$ | async).totalPages}}</span>
+      <span fxFlex fxLayoutAlign="center"> {{pageStatus() | async}} </span>
       <button mat-icon-button fxFlex (click)="nextPage()"><mat-icon>chevron_right</mat-icon></button>
       <button mat-icon-button fxFlex (click)="lastPage()"><mat-icon>last_page</mat-icon></button>
     </mat-card-actions>
@@ -61,12 +62,12 @@ export class SolutionsPageComponent {
   }
 
   nextPage() {
-    if (this.pageMeta$.value.number < this.pageMeta$.value.totalPages) {
+    if (this.pageMeta$.value.number < (this.pageMeta$.value.totalPages - 1)) {
       this.updatePage(this.pageMeta$.value.number + 1);
     }}
 
   lastPage() {
-    this.updatePage(this.pageMeta$.value.totalPages);
+    this.updatePage(this.pageMeta$.value.totalPages - 1);
   }
 
   process() {
@@ -77,6 +78,10 @@ export class SolutionsPageComponent {
     this.solutionService.deleteAll();
     this.pageMeta$.next(new PageMeta(0, 0, 0, 0));
     this.solutions$.next(new Array<SolutionResponse>());
+  }
+
+  pageStatus(): Observable<String> {
+    return this.pageMeta$.pipe(map(pm => pm.totalPages ? `${pm.number + 1} / ${pm.totalPages}` : '0 / 0'));
   }
 
   private updatePage(pageNbr: number) {
