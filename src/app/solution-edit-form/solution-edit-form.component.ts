@@ -8,7 +8,7 @@ import { SolutionService, SolutionUpdateRequest } from '../solution.service';
   template: `
     <h2>Grille de "Bao-Loc"</h2>
     <form [formGroup]="solutionForm" (ngSubmit)="save()" id="solution-form">
-      <mat-grid-list cols="7" class="bao-loc-grid">
+      <mat-grid-list cols="7" class="bao-loc-grid" rowHeight="70px">
       	<!--row 1-->
 	      <mat-grid-tile class="problem-cell">
 	        <mat-form-field required >
@@ -112,7 +112,7 @@ import { SolutionService, SolutionUpdateRequest } from '../solution.service';
   styles: [
     '.problem-cell { border: solid 2px #000; }',
     'input { text-align: center; }',
-    '.bao-loc-grid { display: block; max-width: 510px; margin-left: 10px; margin-right: 10px; }',
+    '.bao-loc-grid { display: block; margin: 10px 10px 10px 10px; max-width: 510px}',
     'mat-form-field { width: 60px; }']
 })
 export class SolutionEditFormComponent implements OnInit, OnDestroy {
