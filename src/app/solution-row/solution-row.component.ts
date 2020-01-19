@@ -36,7 +36,7 @@ export class SolutionRowComponent {
   constructor(private router: Router, private solutionService: SolutionService) {}
 
   onClick() {
-    this.solutionService.selected$.next(this.solution);
+    this.solutionService.select(this.solution);
     this.router.navigate(['/edit']);
   }
 

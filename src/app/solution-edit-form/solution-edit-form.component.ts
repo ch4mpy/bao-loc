@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
-import { SolutionService, SolutionUpdateRequest } from '../solution.service';
+import { SolutionService, SolutionUpdateRequest, SolutionResponse } from '../solution.service';
 
 @Component({
   selector: 'app-solution-edit-form',
@@ -131,10 +131,13 @@ export class SolutionEditFormComponent implements OnInit, OnDestroy {
 
   private selectedSubscription: Subscription;
 
-  constructor(private solutionService: SolutionService) { }
+  constructor(private solutionService: SolutionService) {}
+
+  private solution: SolutionResponse;
 
   ngOnInit() {
-    this.selectedSubscription = this.solutionService.selected$.subscribe(s => {
+    this.selectedSubscription = this.solutionService.selected.subscribe(s => {
+      this.solution = s;
       this.solutionForm.patchValue({ x1: s.x1, x2: s.x2, x3: s.x3, x4: s.x4, x5: s.x5, x6: s.x6, x7: s.x7, x8: s.x8, x9: s.x9 });
     });
   }
@@ -146,7 +149,7 @@ export class SolutionEditFormComponent implements OnInit, OnDestroy {
   }
 
   save() {
-    this.solutionService.update(this.solutionService.selected$.value, new SolutionUpdateRequest(
+    this.solutionService.update(this.solution, new SolutionUpdateRequest(
       +this.solutionForm.get('x1').value,
       +this.solutionForm.get('x2').value,
       +this.solutionForm.get('x3').value,

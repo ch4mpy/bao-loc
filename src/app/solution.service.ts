@@ -49,7 +49,15 @@ export class SolutionService {
 
   public pageSize = 5;
 
-  readonly selected$ = new BehaviorSubject<SolutionResponse>(null);
+  private selected$ = new BehaviorSubject<SolutionResponse>(null);
+
+  get selected(): Observable<SolutionResponse> {
+    return this.selected$;
+  }
+
+  select(solution: SolutionResponse) {
+    this.selected$.next(solution);
+  }
 
   constructor(private http: HttpClient) { }
 

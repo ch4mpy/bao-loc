@@ -20,16 +20,12 @@ describe('AppComponent', () => {
     expect(app).toBeTruthy();
   });
 
-  it(`should have as title 'ui'`, () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.debugElement.componentInstance;
-    expect(app.title).toEqual('ui');
-  });
-
-  it('should render title', () => {
+  it(`should render a toolbar with a title and home icon'`, () => {
     const fixture = TestBed.createComponent(AppComponent);
     fixture.detectChanges();
     const compiled = fixture.debugElement.nativeElement;
-    expect(compiled.querySelector('.content span').textContent).toContain('ui app is running!');
+    expect(compiled.querySelectorAll('.mat-toolbar')).toBeTruthy();
+    expect(compiled.querySelectorAll('.mat-toolbar .header-title')).toBeTruthy();
+    expect(compiled.querySelectorAll('.mat-toolbar .mat-icon')).toBeTruthy();
   });
 });

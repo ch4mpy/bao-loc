@@ -1,6 +1,8 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { SolutionsPageComponent } from './solutions-page.component';
+import { SolutionService } from '../solution.service';
+import { SolutionServiceMock } from '../solution.service.mock';
 
 describe('SolutionsPageComponent', () => {
   let component: SolutionsPageComponent;
@@ -8,7 +10,10 @@ describe('SolutionsPageComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ SolutionsPageComponent ]
+      declarations: [ SolutionsPageComponent ],
+      providers: [
+        { provide: SolutionService, useValue: new SolutionServiceMock() },
+      ],
     })
     .compileComponents();
   }));
