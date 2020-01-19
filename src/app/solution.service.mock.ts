@@ -5,7 +5,7 @@ export class SolutionServiceMock {
 
     public selected = new BehaviorSubject<SolutionResponse>(null);
 
-    public delegate = jasmine.createSpyObj<SolutionService>(['getPage', 'update', 'delete', 'deleteAll']);
+    public delegate = jasmine.createSpyObj<SolutionService>(['select', 'getPage', 'update', 'delete', 'deleteAll']);
 
     getPage(pageNumber = 0): Observable<SolutionPage> {
         return this.delegate.getPage(pageNumber);
@@ -21,5 +21,9 @@ export class SolutionServiceMock {
 
     deleteAll(): Subscription {
         return this.delegate.deleteAll();
+    }
+
+    select(solution: SolutionResponse) {
+        return this.delegate.select(solution);
     }
 }

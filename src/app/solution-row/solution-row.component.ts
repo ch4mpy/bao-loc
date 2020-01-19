@@ -5,12 +5,12 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'app-solution-row',
   template: `
-  <mat-card >
-    <mat-card-content (click)="onClick()">
+  <mat-card (click)="onClick()" >
+    <mat-card-content (click)="onClick()" >
       <div fxLayout fxLayoutGap="10px">
         <div fxFlex>
           <div fxLayout fxLayoutGap="4px">
-            <mat-chip-list (click)="onClick()">
+            <mat-chip-list >
               <mat-chip (click)="onClick()" >{{solution.x1}}</mat-chip>
               <mat-chip (click)="onClick()" >{{solution.x2}}</mat-chip>
               <mat-chip (click)="onClick()" >{{solution.x3}}</mat-chip>

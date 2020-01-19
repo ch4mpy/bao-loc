@@ -51,6 +51,8 @@ export class SolutionService {
 
   private selected$ = new BehaviorSubject<SolutionResponse>(null);
 
+  constructor(private http: HttpClient) { }
+
   get selected(): Observable<SolutionResponse> {
     return this.selected$;
   }
@@ -58,8 +60,6 @@ export class SolutionService {
   select(solution: SolutionResponse) {
     this.selected$.next(solution);
   }
-
-  constructor(private http: HttpClient) { }
 
   getPage(pageNumber = 0): Observable<SolutionPage> {
     const params = new HttpParams()
