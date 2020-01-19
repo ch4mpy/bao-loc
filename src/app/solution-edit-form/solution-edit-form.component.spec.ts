@@ -8,6 +8,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SolutionResponse, SolutionService, SolutionUpdateRequest } from '../solution.service';
 import { SolutionServiceMock } from '../test/solution.service.mock';
 import { SolutionEditFormComponent } from './solution-edit-form.component';
+import { Subscription } from 'rxjs';
 
 
 describe('SolutionEditFormComponent', () => {
@@ -137,4 +138,5 @@ describe('SolutionEditFormComponent', () => {
     expect(inputCells()[0].querySelector('mat-error').textContent).toBeTruthy();
     expect(formErrors().textContent).toBeTruthy();
   });
+  
 });

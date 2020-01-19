@@ -143,7 +143,7 @@ export class SolutionEditFormComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    if (this.selectedSubscription && !this.selectedSubscription.closed) {
+    if (this.selectedSubscription) {
       this.selectedSubscription.unsubscribe();
     }
   }

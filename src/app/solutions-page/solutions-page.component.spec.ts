@@ -1,6 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { of } from 'rxjs';
-import { SolutionPage, SolutionService } from '../solution.service';
+import { SolutionService } from '../solution.service';
 import { MocksModule, SolutionsFixture } from '../test/mocks.module';
 import { SolutionServiceMock } from '../test/solution.service.mock';
 import { SolutionsPageComponent } from './solutions-page.component';
