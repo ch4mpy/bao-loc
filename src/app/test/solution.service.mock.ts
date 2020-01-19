@@ -1,5 +1,5 @@
 import { BehaviorSubject, Observable, Subscription } from 'rxjs';
-import { SolutionPage, SolutionResponse, SolutionService, SolutionUpdateRequest } from './solution.service';
+import { SolutionPage, SolutionResponse, SolutionService, SolutionUpdateRequest } from '../solution.service';
 
 export class SolutionServiceMock {
 

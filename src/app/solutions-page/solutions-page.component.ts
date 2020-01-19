@@ -8,32 +8,32 @@ import { SolutionResponse, SolutionService } from '../solution.service';
   selector: 'app-solutions-page',
   template: `
   <h2>Solutions</h2>
-  <mat-card>
+  <mat-card class="solutions-display">
     <mat-card-content>
       <app-solution-row *ngFor="let solution of solutions$ | async" [solution]="solution"></app-solution-row>
     </mat-card-content>
     <mat-card-actions fxLayout fxLayoutGap="5px">
-      <button mat-icon-button fxFlex (click)="firstPage()">
+      <button mat-icon-button fxFlex (click)="firstPage()" class = "first">
           <mat-icon>first_page</mat-icon>
       </button>
-      <button mat-icon-button fxFlex (click)="prevPage()"><mat-icon>chevron_left</mat-icon></button>
+      <button mat-icon-button fxFlex (click)="prevPage()" class = "prev"><mat-icon>chevron_left</mat-icon></button>
       <span fxFlex fxLayoutAlign="center"> {{pageStatus() | async}} </span>
-      <button mat-icon-button fxFlex (click)="nextPage()"><mat-icon>chevron_right</mat-icon></button>
-      <button mat-icon-button fxFlex (click)="lastPage()"><mat-icon>last_page</mat-icon></button>
+      <button mat-icon-button fxFlex (click)="nextPage()" class = "next"><mat-icon>chevron_right</mat-icon></button>
+      <button mat-icon-button fxFlex (click)="lastPage()" class = "last"><mat-icon>last_page</mat-icon></button>
     </mat-card-actions>
   </mat-card>
 
 
-  <mat-card>
+  <mat-card class="solutions-actions">
     <mat-card-content>
       temps d'exécution en ms: {{executionTime$ | async}}
     </mat-card-content>
     <mat-card-actions fxLayout fxLayoutGap="5px">
-      <button mat-icon-button fxFlex (click)="process()">
+      <button mat-icon-button fxFlex (click)="process()" class="restore-button">
         <mat-icon>restore</mat-icon>
       </button>
 
-      <button mat-icon-button fxFlex (click)="deleteAll()">
+      <button mat-icon-button fxFlex (click)="deleteAll()" class="delete-button">
         <mat-icon>delete</mat-icon>
       </button>
     </mat-card-actions>
@@ -71,16 +71,16 @@ export class SolutionsPageComponent {
   }
 
   process() {
-    this.solutionService.deleteAll().add(() => this.firstPage());
+    this.deleteAll().add(() => this.firstPage());
   }
 
   deleteAll() {
-    this.solutionService.deleteAll();
     this.pageMeta$.next(new PageMeta(0, 0, 0, 0));
     this.solutions$.next(new Array<SolutionResponse>());
+    return this.solutionService.deleteAll();
   }
 
-  pageStatus(): Observable<String> {
+  pageStatus(): Observable<string> {
     return this.pageMeta$.pipe(map(pm => pm.totalPages ? `${pm.number + 1} / ${pm.totalPages}` : '0 / 0'));
   }
 

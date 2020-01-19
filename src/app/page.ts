@@ -6,11 +6,7 @@ export class Link {
 export class PageLinks {
 
     constructor(
-        readonly first: Link,
-        readonly prev: Link,
-        readonly self: Link,
-        readonly next: Link,
-        readonly last: Link) { }
+        readonly self: Link) { }
 }
 
 export class PageMeta {

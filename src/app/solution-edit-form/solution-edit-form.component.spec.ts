@@ -1,15 +1,14 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
-import { SolutionEditFormComponent } from './solution-edit-form.component';
-import { SolutionService, SolutionResponse } from '../solution.service';
-import { BehaviorSubject } from 'rxjs';
 import { HttpClientModule } from '@angular/common/http';
-import { SolutionServiceMock } from '../solution.service.mock';
-import { MatGridListModule } from '@angular/material/grid-list';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material/input';
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatGridListModule } from '@angular/material/grid-list';
+import { MatInputModule } from '@angular/material/input';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { SolutionResponse, SolutionService } from '../solution.service';
+import { SolutionServiceMock } from '../test/solution.service.mock';
+import { SolutionEditFormComponent } from './solution-edit-form.component';
+
 
 describe('SolutionEditFormComponent', () => {
   let component: SolutionEditFormComponent;

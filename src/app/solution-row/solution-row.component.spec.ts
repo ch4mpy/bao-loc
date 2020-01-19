@@ -1,11 +1,11 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
-import { SolutionRowComponent } from './solution-row.component';
-import { SolutionService, SolutionResponse } from '../solution.service';
-import { SolutionServiceMock } from '../solution.service.mock';
-import { RouterTestingModule } from '@angular/router/testing';
 import { Router } from '@angular/router';
-import { SolutionEditFormComponent } from '../solution-edit-form/solution-edit-form.component';
+import { RouterTestingModule } from '@angular/router/testing';
+import { SolutionResponse, SolutionService } from '../solution.service';
+import { SolutionServiceMock } from '../test/solution.service.mock';
+import { SolutionRowComponent } from './solution-row.component';
+import { MockSolutionEditFormComponent } from '../test/solution-edit-form.component.mock';
+
 
 
 describe('SolutionRowComponent', () => {
@@ -27,7 +27,7 @@ describe('SolutionRowComponent', () => {
         { provide: SolutionService, useValue: new SolutionServiceMock() },
       ],
       imports: [
-        RouterTestingModule.withRoutes([]),
+        RouterTestingModule.withRoutes([{path: 'edit', component: MockSolutionEditFormComponent}]),
       ]
     })
     .compileComponents();

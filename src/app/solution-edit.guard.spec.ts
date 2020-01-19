@@ -2,7 +2,7 @@ import { TestBed, async, inject } from '@angular/core/testing';
 
 import { SolutionEditGuard } from './solution-edit.guard';
 import { SolutionService } from './solution.service';
-import { SolutionServiceMock } from './solution.service.mock';
+import { SolutionServiceMock } from './test/solution.service.mock';
 import { RouterTestingModule } from '@angular/router/testing';
 
 describe('SolutionEditGuard', () => {
