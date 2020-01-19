@@ -12,7 +12,7 @@ import { SolutionService, SolutionUpdateRequest, SolutionResponse } from '../sol
       	<!--row 1-->
 	      <mat-grid-tile class="problem-cell">
 	        <mat-form-field required >
-	          <input matInput type="number" matInput formControlName="x1" tabindex="1">
+	          <input matInput type="number" matInput formControlName="x1" tabindex="1" (input)="propagate()">
 	          <mat-error *ngIf="solutionForm.get('x1').invalid">{{solutionForm.get('x1').errors | json}}</mat-error>
 	        </mat-form-field>
 	      </mat-grid-tile>
@@ -106,7 +106,7 @@ import { SolutionService, SolutionUpdateRequest, SolutionResponse } from '../sol
       <button mat-icon-button fxFlex (click)="save()" [disabled]="!!solutionForm.errors">
         <mat-icon>save</mat-icon>
       </button>
-      <mat-error *ngIf="solutionForm.errors">{{solutionForm.errors | json}}</mat-error>
+      <mat-error *ngIf="solutionForm.errors" class="form-errors">{{solutionForm.errors | json}}</mat-error>
     </form>
   `,
   styles: [
@@ -127,7 +127,7 @@ export class SolutionEditFormComponent implements OnInit, OnDestroy {
     x7: new FormControl(null, [Validators.required]),
     x8: new FormControl(null, [Validators.required]),
     x9: new FormControl(null, [Validators.required])
-  }, [this.distinctValuesValidator(), this.valuesInRangeValidator(), this.resultEquals66Validator()]);
+  }, [this.groupDistinctValuesValidator(), this.valuesInRangeValidator(), this.resultEquals66Validator()]);
 
   private selectedSubscription: Subscription;
 
@@ -161,7 +161,7 @@ export class SolutionEditFormComponent implements OnInit, OnDestroy {
       +this.solutionForm.get('x9').value));
   }
 
-  distinctValuesValidator(): ValidatorFn {
+  groupDistinctValuesValidator(): ValidatorFn {
     return (group: FormGroup): ValidationErrors => {
       const errors = {};
 
@@ -176,7 +176,9 @@ export class SolutionEditFormComponent implements OnInit, OnDestroy {
         for (let j = i + 1; j < 10; ++j) {
           if (group.get('x' + i).value === group.get('x' + j).value) {
             group.get('x' + i).setErrors({ notDistinct: true });
+            group.get('x' + i).markAsTouched();
             group.get('x' + j).setErrors({ notDistinct: true });
+            group.get('x' + j).markAsTouched();
             errors[`x${i} equals x${j}`] = true;
           }
         }
