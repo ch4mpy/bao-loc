@@ -1,7 +1,5 @@
 package com.c4soft.tests.skazy.domain;
 
-import java.util.Objects;
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -135,31 +133,6 @@ public class Solution {
 
 	public void setX9(long x9) {
 		this.x9 = x9;
-	}
-
-	@Override
-	public int hashCode() {
-		return Objects.hash(x1, x2, x3, x4, x5, x6, x7, x8, x9);
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj) {
-			return true;
-		}
-		if (!(obj instanceof Solution)) {
-			return false;
-		}
-		final Solution other = (Solution) obj;
-		return Objects.equals(x1, other.x1)
-				&& Objects.equals(x2, other.x2)
-				&& Objects.equals(x3, other.x3)
-				&& Objects.equals(x4, other.x4)
-				&& Objects.equals(x5, other.x5)
-				&& Objects.equals(x6, other.x6)
-				&& Objects.equals(x7, other.x7)
-				&& Objects.equals(x8, other.x8)
-				&& Objects.equals(x9, other.x9);
 	}
 
 	@Override

@@ -1,7 +1,6 @@
 package com.c4soft.tests.skazy.web;
 
 import java.io.Serializable;
-import java.util.Objects;
 
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -40,36 +39,5 @@ public class SolutionResponse extends RepresentationModel<SolutionResponse> impl
 		this.x7 = x7;
 		this.x8 = x8;
 		this.x9 = x9;
-	}
-
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = super.hashCode();
-		result = prime * result + Objects.hash(x1, x2, x3, x4, x5, x6, x7, x8, x9);
-		return result;
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj) {
-			return true;
-		}
-		if (!super.equals(obj)) {
-			return false;
-		}
-		if (!(obj instanceof SolutionResponse)) {
-			return false;
-		}
-		final SolutionResponse other = (SolutionResponse) obj;
-		return Objects.equals(x1, other.x1)
-				&& Objects.equals(x2, other.x2)
-				&& Objects.equals(x3, other.x3)
-				&& Objects.equals(x4, other.x4)
-				&& Objects.equals(x5, other.x5)
-				&& Objects.equals(x6, other.x6)
-				&& Objects.equals(x7, other.x7)
-				&& Objects.equals(x8, other.x8)
-				&& Objects.equals(x9, other.x9);
 	}
 }

@@ -46,15 +46,26 @@ class BaoLocProblemTest {
 
 	@Test
 	void whenAtLeastTwoValuesAreEqualThenElementsAreDifferentIsFalse() {
-		assertFalse(BaoLocProblem.elementsAreDifferent(new Solution(9, 2, 3, 4, 5, 6, 7, 8, 9)));
-		assertFalse(BaoLocProblem.elementsAreDifferent(new Solution(1, 9, 3, 4, 5, 6, 7, 8, 9)));
-		assertFalse(BaoLocProblem.elementsAreDifferent(new Solution(1, 2, 9, 4, 5, 6, 7, 8, 9)));
-		assertFalse(BaoLocProblem.elementsAreDifferent(new Solution(1, 2, 3, 9, 5, 6, 7, 8, 9)));
-		assertFalse(BaoLocProblem.elementsAreDifferent(new Solution(1, 2, 3, 4, 9, 6, 7, 8, 9)));
-		assertFalse(BaoLocProblem.elementsAreDifferent(new Solution(1, 2, 3, 4, 5, 9, 7, 8, 9)));
-		assertFalse(BaoLocProblem.elementsAreDifferent(new Solution(1, 2, 3, 4, 5, 6, 9, 8, 9)));
-		assertFalse(BaoLocProblem.elementsAreDifferent(new Solution(1, 2, 3, 4, 5, 6, 7, 9, 9)));
-		assertFalse(BaoLocProblem.elementsAreDifferent(new Solution(1, 2, 3, 4, 5, 6, 7, 8, 1)));
+		final long[] solution = { 7, 2, 8, 9, 6, 5, 3, 1, 4 };
+		for (int i = 0; i < 8; ++i) {
+			for (int j = i + 1; j < 9; ++j) {
+				final long[] invalid = solution.clone();
+				invalid[i] = invalid[j];
+				assertFalse(
+						BaoLocProblem.elementsAreDifferent(
+								new Solution(
+										invalid[0],
+										invalid[1],
+										invalid[2],
+										invalid[3],
+										invalid[4],
+										invalid[5],
+										invalid[6],
+										invalid[7],
+										invalid[8])),
+						"elements at indexes " + i + " and " + j + " are equal but true returned");
+			}
+		}
 	}
 
 	@Test
