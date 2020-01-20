@@ -20,8 +20,6 @@ jobs:
         run: ./mvnw clean package --file pom.xml
       - name: Build Docker image
         run: docker build -t baoloc . --file Dockerfile
-      - name: Tag Docker image for Dockerhub
-        run: docker tag baoloc ch4mp/baoloc:0.0.1-SNAPSHOT
       - name: Tag Docker image for Azure
         run: docker tag baoloc baolocregistry.azurecr.io/baoloc:0.0.1-SNAPSHOT
       - name: Publish to Azure
@@ -31,9 +29,3 @@ jobs:
           username: baolocregistry
           password: ${{ secrets.AZURE_PASSWORD }}
           registry: baolocregistry.azurecr.io
-      - name: Publish to Dockerhub
-        uses: elgohr/Publish-Docker-Github-Action@master
-        with:
-          name: ch4mp/baoloc:0.0.1-SNAPSHOT
-          username: ch4mp
-          password: ${{ secrets.DOCKERHUB_PASSWORD }}
