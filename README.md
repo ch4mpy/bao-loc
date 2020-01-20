@@ -21,7 +21,7 @@ Les ressources disponibles depuis une machine sur laquelle le projet est **en co
   * [l'UI Angular 8](http://localhost:8080)
   * l'API de manipulation des solutions qui peut être exploitée avec un client REST tel que Postman pointé sur l'URL http://localhost:8080/solutions
   * [la documentation de cette API](http://localhost:8080/api.html)
-  * [les rapports de couverture du code par les tests-unitaires](http://localhost:8080/jacoco-tu.index.html)
+  * [les rapports de couverture du code par les tests-unitaires](http://localhost:8080/jacoco-ut/index.html)
 
 ## Contraintes de qualité
 
