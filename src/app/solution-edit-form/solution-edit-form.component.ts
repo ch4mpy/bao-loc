@@ -12,7 +12,7 @@ import { SolutionService, SolutionUpdateRequest, SolutionResponse } from '../sol
       	<!--row 1-->
 	      <mat-grid-tile class="problem-cell">
 	        <mat-form-field required >
-	          <input matInput type="number" matInput formControlName="x1" tabindex="1" (input)="propagate()">
+	          <input matInput type="number" matInput formControlName="x1" tabindex="1">
 	          <mat-error *ngIf="solutionForm.get('x1').invalid">{{solutionForm.get('x1').errors | json}}</mat-error>
 	        </mat-form-field>
 	      </mat-grid-tile>
