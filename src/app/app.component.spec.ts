@@ -1,5 +1,4 @@
-import { TestBed, async, ComponentFixture } from '@angular/core/testing';
-import { RouterTestingModule } from '@angular/router/testing';
+import { async, TestBed } from '@angular/core/testing';
 import { AppComponent } from './app.component';
 
 describe('AppComponent', () => {
@@ -9,7 +8,6 @@ describe('AppComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [
-        RouterTestingModule
       ],
       declarations: [
         AppComponent
@@ -28,9 +26,13 @@ describe('AppComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should render a toolbar with a title and home icon', () => {
+  it('should render a toolbar with a title', () => {
     expect(rootElement.querySelectorAll('mat-toolbar').length).toEqual(1);
     expect(rootElement.querySelector('mat-toolbar .header-title').textContent).toBeTruthy();
-    expect(rootElement.querySelectorAll('mat-toolbar mat-icon').length).toEqual(1);
+  });
+
+  it('should render solutions page widget and solution edit widget', () => {
+    expect(rootElement.querySelectorAll('app-solutions-page').length).toEqual(1);
+    expect(rootElement.querySelectorAll('app-solution-edit-form').length).toEqual(1);
   });
 });

@@ -1,14 +1,3 @@
-export class Link {
-    constructor(
-        readonly href: string) { }
-}
-
-export class PageLinks {
-
-    constructor(
-        readonly self: Link) { }
-}
-
 export class PageMeta {
     constructor(
         readonly size: number,

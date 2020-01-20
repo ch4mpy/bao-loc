@@ -151,6 +151,11 @@
 										${project.build.directory}/site
 									</directory>
 								</resource>
+								<resource>
+									<directory>
+										${project.basedir}/coverage
+									</directory>
+								</resource>
 							</resources>
 						</configuration>
 					</execution>
@@ -178,7 +183,7 @@
 						</goals>
 						<configuration>
 							<dataFile>${project.build.directory}/coverage-reports/jacoco-ut.exec</dataFile>
-							<outputDirectory>${project.reporting.outputDirectory}/jacoco-ut</outputDirectory>
+							<outputDirectory>${project.reporting.outputDirectory}/ut/jacoco</outputDirectory>
 						</configuration>
 					</execution>
 					<execution>

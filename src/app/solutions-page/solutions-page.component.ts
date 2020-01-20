@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { PageMeta } from '../page';
@@ -23,7 +23,6 @@ import { SolutionResponse, SolutionService } from '../solution.service';
     </mat-card-actions>
   </mat-card>
 
-
   <mat-card class="solutions-actions">
     <mat-card-content>
       temps d'exécution en ms: {{executionTime$ | async}}
@@ -41,7 +40,7 @@ import { SolutionResponse, SolutionService } from '../solution.service';
   `,
   styles: []
 })
-export class SolutionsPageComponent {
+export class SolutionsPageComponent implements OnInit {
 
   readonly pageMeta$ = new BehaviorSubject<PageMeta>(new PageMeta(0, 0, 0, 0));
 
@@ -50,6 +49,10 @@ export class SolutionsPageComponent {
   readonly executionTime$ = new BehaviorSubject<number>(null);
 
   constructor(private solutionService: SolutionService) { }
+
+  ngOnInit() {
+    this.firstPage();
+  }
 
   firstPage() {
     this.updatePage(0);
@@ -64,7 +67,8 @@ export class SolutionsPageComponent {
   nextPage() {
     if (this.pageMeta$.value.number < (this.pageMeta$.value.totalPages - 1)) {
       this.updatePage(this.pageMeta$.value.number + 1);
-    }}
+    }
+  }
 
   lastPage() {
     this.updatePage(this.pageMeta$.value.totalPages - 1);

@@ -1,11 +1,12 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
-import { SolutionService, SolutionUpdateRequest, SolutionResponse } from '../solution.service';
+import { SolutionResponse, SolutionService } from '../solution.service';
 
 @Component({
   selector: 'app-solution-edit-form',
   template: `
+  <div class="widget">
     <h2>Grille de "Bao-Loc"</h2>
     <form [formGroup]="solutionForm" (ngSubmit)="save()" id="solution-form">
       <mat-grid-list cols="7" class="bao-loc-grid" rowHeight="70px">
@@ -108,11 +109,12 @@ import { SolutionService, SolutionUpdateRequest, SolutionResponse } from '../sol
       </button>
       <mat-error *ngIf="solutionForm.errors" class="form-errors">{{solutionForm.errors | json}}</mat-error>
     </form>
+  </div>
   `,
   styles: [
     '.problem-cell { border: solid 2px #000; }',
     'input { text-align: center; }',
-    '.bao-loc-grid { display: block; margin: 10px 10px 10px 10px; max-width: 510px}',
+    '.bao-loc-grid { display: block; margin: 10px 10px 10px 10px; }',
     'mat-form-field { width: 60px; }']
 })
 export class SolutionEditFormComponent implements OnInit, OnDestroy {
@@ -131,14 +133,18 @@ export class SolutionEditFormComponent implements OnInit, OnDestroy {
 
   private selectedSubscription: Subscription;
 
-  constructor(private solutionService: SolutionService) {}
+  constructor(private solutionService: SolutionService) { }
 
   private solution: SolutionResponse;
 
   ngOnInit() {
     this.selectedSubscription = this.solutionService.selected.subscribe(s => {
       this.solution = s;
-      this.solutionForm.patchValue({ x1: s.x1, x2: s.x2, x3: s.x3, x4: s.x4, x5: s.x5, x6: s.x6, x7: s.x7, x8: s.x8, x9: s.x9 });
+      if (s) {
+        this.solutionForm.patchValue({ x1: s.x1, x2: s.x2, x3: s.x3, x4: s.x4, x5: s.x5, x6: s.x6, x7: s.x7, x8: s.x8, x9: s.x9 });
+      } else {
+        this.solutionForm.patchValue({ x1: '', x2: '', x3: '', x4: '', x5: '', x6: '', x7: '', x8: '', x9: '' });
+      }
     });
   }
 
@@ -149,16 +155,16 @@ export class SolutionEditFormComponent implements OnInit, OnDestroy {
   }
 
   save() {
-    this.solutionService.update(this.solution, new SolutionUpdateRequest(
-      +this.solutionForm.get('x1').value,
-      +this.solutionForm.get('x2').value,
-      +this.solutionForm.get('x3').value,
-      +this.solutionForm.get('x4').value,
-      +this.solutionForm.get('x5').value,
-      +this.solutionForm.get('x6').value,
-      +this.solutionForm.get('x7').value,
-      +this.solutionForm.get('x8').value,
-      +this.solutionForm.get('x9').value));
+    this.solution.x1 = +this.solutionForm.get('x1').value;
+    this.solution.x2 = +this.solutionForm.get('x2').value;
+    this.solution.x3 = +this.solutionForm.get('x3').value;
+    this.solution.x4 = +this.solutionForm.get('x4').value;
+    this.solution.x5 = +this.solutionForm.get('x5').value;
+    this.solution.x6 = +this.solutionForm.get('x6').value;
+    this.solution.x7 = +this.solutionForm.get('x7').value;
+    this.solution.x8 = +this.solutionForm.get('x8').value;
+    this.solution.x9 = +this.solutionForm.get('x9').value;
+    this.solutionService.update(this.solution);
   }
 
   groupDistinctValuesValidator(): ValidatorFn {
@@ -217,18 +223,18 @@ export class SolutionEditFormComponent implements OnInit, OnDestroy {
 
   result(group: FormGroup): number {
     return +group.get('x1').value
-    + 13
-    * group.get('x2').value
-    / group.get('x3').value
-    + group.get('x4').value
-    + 12
-    * group.get('x5').value
-    - group.get('x6').value
-    - 11
-    + group.get('x7').value
-    * group.get('x8').value
-    / group.get('x9').value
-    - 10;
+      + 13
+      * group.get('x2').value
+      / group.get('x3').value
+      + group.get('x4').value
+      + 12
+      * group.get('x5').value
+      - group.get('x6').value
+      - 11
+      + group.get('x7').value
+      * group.get('x8').value
+      / group.get('x9').value
+      - 10;
   }
 
 }

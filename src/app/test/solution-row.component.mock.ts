@@ -1,9 +1,9 @@
-import { Input, Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { SolutionResponse } from '../solution.service';
 
 @Component({
-    selector: 'app-solution-row',
-    template: `<div id="mock-solution-row">
+  selector: 'app-solution-row',
+  template: `<div id="mock-solution-row">
       {{solution.x1}},
       {{solution.x2}},
       {{solution.x3}},
@@ -13,8 +13,8 @@ import { SolutionResponse } from '../solution.service';
       {{solution.x7}},
       {{solution.x8}},
       {{solution.x9}}</div>`,
-    styles: []
-  })
-  export class MockSolutionRowComponent {
-    @Input() solution: SolutionResponse;
-  }
+  styles: []
+})
+export class MockSolutionRowComponent {
+  @Input() solution: SolutionResponse;
+}

@@ -1,6 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { SolutionResponse, SolutionService } from '../solution.service';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-solution-row',
@@ -33,11 +32,10 @@ export class SolutionRowComponent {
 
   @Input() solution: SolutionResponse;
 
-  constructor(private router: Router, private solutionService: SolutionService) {}
+  constructor(private solutionService: SolutionService) {}
 
   onClick() {
     this.solutionService.select(this.solution);
-    this.router.navigate(['/edit']);
   }
 
 }

@@ -5,10 +5,9 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatInputModule } from '@angular/material/input';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { SolutionResponse, SolutionService, SolutionUpdateRequest } from '../solution.service';
+import { SolutionResponse, SolutionService } from '../solution.service';
 import { SolutionServiceMock } from '../test/solution.service.mock';
 import { SolutionEditFormComponent } from './solution-edit-form.component';
-import { Subscription } from 'rxjs';
 
 
 describe('SolutionEditFormComponent', () => {
@@ -117,7 +116,7 @@ describe('SolutionEditFormComponent', () => {
 
   it('should call solution-service when save button is clicked', () => {
     saveButton().click();
-    expect(solutionService.delegate.update).toHaveBeenCalledWith(initialResponse, new SolutionUpdateRequest(4, 3, 9, 1, 7, 8, 5, 2, 6));
+    expect(solutionService.delegate.update).toHaveBeenCalledWith(initialResponse);
   });
 
   it('should display an error and invalidate form when two values are equal', () => {
@@ -138,5 +137,5 @@ describe('SolutionEditFormComponent', () => {
     expect(inputCells()[0].querySelector('mat-error').textContent).toBeTruthy();
     expect(formErrors().textContent).toBeTruthy();
   });
-  
+
 });

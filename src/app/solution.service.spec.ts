@@ -1,6 +1,6 @@
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { TestBed } from '@angular/core/testing';
-import { SolutionService, SolutionResponse, SolutionUpdateRequest } from './solution.service';
+import { SolutionService } from './solution.service';
 import { SolutionsFixture } from './test/mocks.module';
 
 
@@ -51,7 +51,7 @@ describe('SolutionService', () => {
   });
 
   it('should PUT solution when update is called', () => {
-    service.update(solutionFixture.solutions[0], new SolutionUpdateRequest(1, 2, 3, 4, 5, 6, 7, 8, 9));
+    service.update(solutionFixture.solutions[0]);
     const requests = httpTestingController.match(req =>
       req.url === solutionFixture.solutions[0]._links.self.href && req.method === 'PUT');
     requests[0].flush({}, { status: 202, statusText: 'ACCEPTED' });

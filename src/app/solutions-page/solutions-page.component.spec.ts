@@ -58,7 +58,7 @@ describe('SolutionsPageComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ SolutionsPageComponent ],
+      declarations: [SolutionsPageComponent],
       providers: [
         { provide: SolutionService, useValue: new SolutionServiceMock() }
       ],
@@ -66,12 +66,13 @@ describe('SolutionsPageComponent', () => {
         MocksModule,
       ],
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(SolutionsPageComponent);
     solutionService = TestBed.get(SolutionService);
+    solutionService.delegate.getPage.and.returnValue(of(solutionsFixture.getPage(0, 3)));
+    fixture = TestBed.createComponent(SolutionsPageComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
     rootElement = fixture.nativeElement;
@@ -122,14 +123,15 @@ describe('SolutionsPageComponent', () => {
     lastPageButton().click();
     fixture.detectChanges();
 
-    expect(solutionService.delegate.getPage).toHaveBeenCalledTimes(7);
+    expect(solutionService.delegate.getPage).toHaveBeenCalledTimes(8);
     expect(solutionService.delegate.getPage.calls.all()[0].args[0]).toEqual(0);
-    expect(solutionService.delegate.getPage.calls.all()[1].args[0]).toEqual(1);
-    expect(solutionService.delegate.getPage.calls.all()[2].args[0]).toEqual(2);
-    expect(solutionService.delegate.getPage.calls.all()[3].args[0]).toEqual(1);
-    expect(solutionService.delegate.getPage.calls.all()[4].args[0]).toEqual(2);
-    expect(solutionService.delegate.getPage.calls.all()[5].args[0]).toEqual(0);
-    expect(solutionService.delegate.getPage.calls.all()[6].args[0]).toEqual(2);
+    expect(solutionService.delegate.getPage.calls.all()[1].args[0]).toEqual(0);
+    expect(solutionService.delegate.getPage.calls.all()[2].args[0]).toEqual(1);
+    expect(solutionService.delegate.getPage.calls.all()[3].args[0]).toEqual(2);
+    expect(solutionService.delegate.getPage.calls.all()[4].args[0]).toEqual(1);
+    expect(solutionService.delegate.getPage.calls.all()[5].args[0]).toEqual(2);
+    expect(solutionService.delegate.getPage.calls.all()[6].args[0]).toEqual(0);
+    expect(solutionService.delegate.getPage.calls.all()[7].args[0]).toEqual(2);
   });
 
   it('should do noting when previous page button is clicked on first page', () => {
@@ -140,8 +142,8 @@ describe('SolutionsPageComponent', () => {
     prevPageButton().click();
     fixture.detectChanges();
 
-    // first page at "reload"
-    expect(solutionService.delegate.getPage).toHaveBeenCalledTimes(1);
+    // first page at "load" and "reload"
+    expect(solutionService.delegate.getPage).toHaveBeenCalledTimes(2);
   });
 
   it('should do noting when next page button is clicked on last page', () => {
@@ -156,8 +158,8 @@ describe('SolutionsPageComponent', () => {
     nextPageButton().click();
     fixture.detectChanges();
 
-    // first page at "reload" and then last page
-    expect(solutionService.delegate.getPage).toHaveBeenCalledTimes(2);
+    // first page at "load", "reload" and then last page
+    expect(solutionService.delegate.getPage).toHaveBeenCalledTimes(3);
   });
 
   it('should trigger solutions deletion when trash button is clicked', () => {

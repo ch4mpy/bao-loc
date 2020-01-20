@@ -1,5 +1,5 @@
 import { BehaviorSubject, Observable, Subscription } from 'rxjs';
-import { SolutionPage, SolutionResponse, SolutionService, SolutionUpdateRequest } from '../solution.service';
+import { SolutionPage, SolutionResponse, SolutionService } from '../solution.service';
 
 export class SolutionServiceMock {
 
@@ -7,16 +7,12 @@ export class SolutionServiceMock {
 
     public delegate = jasmine.createSpyObj<SolutionService>(['select', 'getPage', 'update', 'delete', 'deleteAll']);
 
-    getPage(pageNumber = 0): Observable<SolutionPage> {
+    getPage(pageNumber): Observable<SolutionPage> {
         return this.delegate.getPage(pageNumber);
     }
 
-    update(from: SolutionResponse, to: SolutionUpdateRequest): Subscription {
-        return this.delegate.update(from, to);
-    }
-
-    delete(solution: SolutionResponse): Subscription {
-        return this.delegate.delete(solution);
+    update(from: SolutionResponse): Subscription {
+        return this.delegate.update(from);
     }
 
     deleteAll(): Subscription {
