@@ -34,5 +34,5 @@ jobs:
         uses: elgohr/Publish-Docker-Github-Action@master
         with:
           name: baolocregistry.azurecr.io/baoloc:0.0.1-SNAPSHOT
-          username: ch4mp
+          username: baolocregistry
           password: ${{ secrets.AZURE_PASSWORD }}
