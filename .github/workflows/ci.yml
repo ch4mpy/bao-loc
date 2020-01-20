@@ -16,13 +16,23 @@ jobs:
       - name: Make Maven Wrapper executable
         if: contains(matrix.os, 'win') == false
         run: chmod +x ./mvnw
-      - name: Build with Maven
+      - name: Package with Maven
         run: ./mvnw clean package --file pom.xml
-      - name: Build the Docker image
-        run: docker build -t baoloc . --file Dockerfile --tag ch4mp/baoloc:0.0.1-SNAPSHOT
-      - name: Publish to Registry
+      - name: Build Docker image
+        run: docker build -t baoloc . --file Dockerfile
+      - name: Tag Docker image for Dockerhub
+        run: docker tag baoloc ch4mp/baoloc:0.0.1-SNAPSHOT
+      - name: Publish to Dockerhub
         uses: elgohr/Publish-Docker-Github-Action@master
         with:
           name: ch4mp/baoloc:0.0.1-SNAPSHOT
           username: ch4mp
           password: ${{ secrets.DOCKERHUB_PASSWORD }}
+      - name: Tag Docker image for Azure
+        run: docker tag baoloc baolocregistry.azurecr.io/baoloc:0.0.1-SNAPSHOT
+      - name: Publish to Azure
+        uses: elgohr/Publish-Docker-Github-Action@master
+        with:
+          name: baolocregistry.azurecr.io/baoloc:0.0.1-SNAPSHOT
+          username: ch4mp
+          password: ${{ secrets.AZURE_PASSWORD }}
