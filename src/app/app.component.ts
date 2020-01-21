@@ -12,7 +12,7 @@ import { Component } from '@angular/core';
 
   <h1>Contexte</h1>
   <p>
-    Vous regardez le livrable d'une évaluation technique comportant quatre étapes:
+    Vous regardez le livrable d'une <a href="https://github.com/ch4mpy/Bao-Loc">évaluation technique</a> comportant quatre étapes:
   </p>
   <ol>
     <li>écriture d'un algorithme trouvant les solutions au problème de math</li>
@@ -32,11 +32,13 @@ import { Component } from '@angular/core';
     compile, package dans un conteneur Docker et déploie sur le cloud Azure.
   </p>
   <p>
-    J'ai également configuré Maven pour packager la <a href="http://bao-loc.azurewebsites.net/api.html">documentation de l'API REST</a>
-    ainsi que les couvertures du code par les test unitaires des projets
-    <a href="http://bao-loc.azurewebsites.net/ut/jacoco/index.html">Spring</a> et
-    <a href="http://bao-loc.azurewebsites.net/ut/angular/index.html">Angular</a>.
+    J'ai également configuré Maven pour packager quelques ressources complémentaires:
   </p>
+  <ul>
+    <li><a href="http://bao-loc.azurewebsites.net/api.html">documentation de l'API REST</a></li>
+    <li><a href="http://bao-loc.azurewebsites.net/ut/jacoco/index.html"></a></li>
+    <li><a href="http://bao-loc.azurewebsites.net/ut/angular/index.html">couverture du code Angular par les tests unitaires</a></li>
+  </ul>
 
   <h1>Résultat</h1>
   Sélectionnez une solution (à gauche) pour pouvoir l'éditer (à droite).
