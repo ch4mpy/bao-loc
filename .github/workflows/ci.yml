@@ -2,30 +2,44 @@ name: CI
 
 on: [push]
 jobs:
-  build:
+  build-and-deploy:
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
     steps:
       - name: Checkout
         uses: actions/checkout@v1
+        
       - name: Set up JDK 11
         uses: actions/setup-java@v1
         with:
           java-version: 11
+
       - name: Make Maven Wrapper executable
         if: contains(matrix.os, 'win') == false
         run: chmod +x ./mvnw
       - name: Package with Maven
-        run: ./mvnw clean package --file pom.xml
-      - name: Build Docker image
-        run: docker build -t baoloc . --file Dockerfile
-      - name: Tag Docker image for Azure
-        run: docker tag baoloc baolocregistry.azurecr.io/baoloc:0.0.1-SNAPSHOT
-      - name: Publish to Azure
-        uses: elgohr/Publish-Docker-Github-Action@master
+        run: ./mvnw clean package
+
+      - name: 'Login via Azure CLI'
+        uses: azure/login@v1
         with:
-          name: baolocregistry.azurecr.io/baoloc:0.0.1-SNAPSHOT
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+      - uses: azure/docker-login@v1
+        with:
+          login-server: baolocregistry.azurecr.io
           username: baolocregistry
           password: ${{ secrets.AZURE_PASSWORD }}
-          registry: baolocregistry.azurecr.io
+    
+      - name: Build Docker image
+        run: docker build . -t baolocregistry.azurecr.io/baoloc:${{ github.sha }}
+      - name: Publish to Azure
+        run: docker push baolocregistry.azurecr.io/baoloc:${{ github.sha }}
+      
+      - uses: azure/webapps-container-deploy@v1
+        with:
+          app-name: 'bao-loc'
+          images: 'baolocregistry.azurecr.io/baoloc:${{ github.sha }}'
+
+      - name: Azure logout
+        run: az logout
