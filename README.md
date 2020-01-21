@@ -1,23 +1,26 @@
-# Evaluation technique par Skazy.nc
+# Evaluation technique portant sur leproblème de "Bao-Loc"
 
-Repo temporaire pour partager ma réponse à l'évaluation technique de Skazy.
+Réponse à  une évaluation technique dans le cadre d'un processus de recrutement.
 
-## Pré-requis
+## Pré-requis pour compiler / assembler / exécuter localement
 
-Pour compiler ou exécuter le projet localement, leseul pré-requis est un JDK 11 ou suppérieur.
+**JDK 11** ou suppérieur.
+
 Un wrapper maven est embarqué dans le projet.
-Des plugins maven se chargent de récupérer les outils nécessaires pour le build du projet Angular.
+Des plugins se chargent de récupérer les outils nécessaires pour le build du projet Angular.
+
+Le packaging Docker ainsi que le déploiement sur le cloud Azure sont fait depuis Github.
 
 ## Livrables
 
-[L'intégration continue ](https://github.com/ch4mpy/skazy-wacongne-jerome/actions) package le projet dans un jar puis dans un conteneur Docker avant de le déployer sur le cloud [Azure](http://bao-loc.azurewebsites.net/).
+[L'intégration continue](https://github.com/ch4mpy/Bao-Loc/actions) package le projet dans un jar puis dans un conteneur Docker avant de le déployer sur le cloud [Azure](http://bao-loc.azurewebsites.net/).
 
-Comme stipulé dans l'énnoncé, j'ai produit un application web `spring-boot` avec un front Angular.
+Comme stipulé dans l'énnoncé, j'ai produit une application web `spring-boot` avec un front Angular.
 
 J'ai choisi un build maven. Les commandes ordinaires pour ce type de projet s'appliquent donc. Examples:
   * `./mvnw spring-boot:run` permet d'exécuter le projet mais sans accès aux resource annexes telles que les rapports de test ou documentation de l'API
   * `./mvnw package` suffit à lancer le build (projet Angular compris)
-  * `java -jar target/skazy-wacongne-jerome-0.0.1-SNAPSHOT.jar` exécute le projet (qu'il faut avoir packagé au préalable)
+  * `java -jar target/bao-loc-0.0.1-SNAPSHOT.jar` exécute le projet (qu'il faut avoir packagé au préalable)
 
 Les ressources disponibles sont :
   * [l'UI Angular 8](http://bao-loc.azurewebsites.net/)
@@ -28,6 +31,6 @@ Les ressources disponibles sont :
 
 ## Contraintes de qualité
 
-Une [action Github](https://github.com/ch4mpy/skazy-wacongne-jerome/actions) assure l'intégration continue.
+Une [action Github](https://github.com/ch4mpy/Bao-Loc/actions) assure l'intégration continue.
 
 Le build échoue si la couverture du code par les tests passe en dessous de 80%, que ce soit pour la partie Spring ou Angular.

@@ -1,9 +1,9 @@
-package com.c4soft.tests.skazy.web;
+package com.c4_soft.tests.baoloc.web;
 
-import static com.c4soft.tests.skazy.web.RestdocsSupport.document;
-import static com.c4soft.tests.skazy.web.RestdocsSupport.ignorePage;
-import static com.c4soft.tests.skazy.web.RestdocsSupport.links;
-import static com.c4soft.tests.skazy.web.RestdocsSupport.responseFields;
+import static com.c4_soft.tests.baoloc.web.RestdocsSupport.document;
+import static com.c4_soft.tests.baoloc.web.RestdocsSupport.ignorePage;
+import static com.c4_soft.tests.baoloc.web.RestdocsSupport.links;
+import static com.c4_soft.tests.baoloc.web.RestdocsSupport.responseFields;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.Matchers.hasSize;
 import static org.mockito.ArgumentMatchers.any;
@@ -33,10 +33,10 @@ import org.springframework.http.MediaType;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 
-import com.c4soft.tests.skazy.domain.Problem;
-import com.c4soft.tests.skazy.domain.ProblemService;
-import com.c4soft.tests.skazy.domain.Solution;
-import com.c4soft.tests.skazy.persistence.SolutionRepository;
+import com.c4_soft.tests.baoloc.domain.Problem;
+import com.c4_soft.tests.baoloc.domain.ProblemService;
+import com.c4_soft.tests.baoloc.domain.Solution;
+import com.c4_soft.tests.baoloc.persistence.SolutionRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 @ExtendWith(SpringExtension.class)

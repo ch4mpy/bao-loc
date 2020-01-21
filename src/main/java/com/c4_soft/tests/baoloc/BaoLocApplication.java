@@ -1,4 +1,4 @@
-package com.c4soft.tests.skazy;
+package com.c4_soft.tests.baoloc;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

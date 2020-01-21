@@ -1,4 +1,4 @@
-package com.c4soft.tests.skazy.domain;
+package com.c4_soft.tests.baoloc.domain;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;

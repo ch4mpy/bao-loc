@@ -9,11 +9,11 @@
 		<version>2.2.2.RELEASE</version>
 		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>com.c4soft.tests</groupId>
-	<artifactId>skazy-wacongne-jerome</artifactId>
+	<groupId>com.c4_soft.tests</groupId>
+	<artifactId>bao-loc</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>skazy-wacongne-jerome</name>
-	<description>Evaluation technique de Jérôme Wacongne par Skazy</description>
+	<name>Bao-Loc</name>
+	<description>Evaluation technique de Jérôme Wacongne portant sur le problème dit de Bao-Loc</description>
 
 	<properties>
 		<java.version>11</java.version>

@@ -1,4 +1,4 @@
-package com.c4soft.tests.skazy.web;
+package com.c4_soft.tests.baoloc.web;
 
 import javax.persistence.EntityNotFoundException;
 import javax.validation.Valid;
@@ -17,10 +17,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.c4soft.tests.skazy.domain.Problem;
-import com.c4soft.tests.skazy.domain.ProblemService;
-import com.c4soft.tests.skazy.domain.Solution;
-import com.c4soft.tests.skazy.persistence.SolutionRepository;
+import com.c4_soft.tests.baoloc.domain.Problem;
+import com.c4_soft.tests.baoloc.domain.ProblemService;
+import com.c4_soft.tests.baoloc.domain.Solution;
+import com.c4_soft.tests.baoloc.persistence.SolutionRepository;
 import com.sun.istack.NotNull;
 
 @RestController

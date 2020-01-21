@@ -1,4 +1,4 @@
-package com.c4soft.tests.skazy.web;
+package com.c4_soft.tests.baoloc.web;
 
 import static org.springframework.restdocs.hypermedia.HypermediaDocumentation.linkWithRel;
 import static org.springframework.restdocs.operation.preprocess.Preprocessors.preprocessRequest;

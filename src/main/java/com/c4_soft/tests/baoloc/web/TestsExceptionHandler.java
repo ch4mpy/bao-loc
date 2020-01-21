@@ -1,4 +1,4 @@
-package com.c4soft.tests.skazy.web;
+package com.c4_soft.tests.baoloc.web;
 
 import java.io.IOException;
 

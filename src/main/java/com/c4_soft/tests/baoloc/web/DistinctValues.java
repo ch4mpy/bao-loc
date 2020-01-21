@@ -1,4 +1,4 @@
-package com.c4soft.tests.skazy.web;
+package com.c4_soft.tests.baoloc.web;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -14,7 +14,7 @@ import javax.validation.Payload;
 
 import org.springframework.expression.spel.standard.SpelExpressionParser;
 
-import com.c4soft.tests.skazy.web.DistinctValues.DistinctValuesValidator;
+import com.c4_soft.tests.baoloc.web.DistinctValues.DistinctValuesValidator;
 
 @Constraint(validatedBy = DistinctValuesValidator.class)
 @Target(ElementType.TYPE)

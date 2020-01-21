@@ -1,9 +1,12 @@
-package com.c4soft.tests.skazy.domain;
+package com.c4_soft.tests.baoloc.domain;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
+
+import com.c4_soft.tests.baoloc.domain.BaoLocProblem;
+import com.c4_soft.tests.baoloc.domain.BruteForceBoaLocProblemSolutionFinder;
 
 class BruteForceBoaLocProblemSolutionFinderTest {
 

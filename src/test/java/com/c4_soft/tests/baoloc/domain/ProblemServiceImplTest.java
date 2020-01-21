@@ -1,4 +1,4 @@
-package com.c4soft.tests.skazy.domain;
+package com.c4_soft.tests.baoloc.domain;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
@@ -16,7 +16,11 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 
-import com.c4soft.tests.skazy.persistence.SolutionRepository;
+import com.c4_soft.tests.baoloc.domain.Problem;
+import com.c4_soft.tests.baoloc.domain.ProblemServiceImpl;
+import com.c4_soft.tests.baoloc.domain.ProblemSolver;
+import com.c4_soft.tests.baoloc.domain.Solution;
+import com.c4_soft.tests.baoloc.persistence.SolutionRepository;
 
 @SpringBootTest
 class ProblemServiceImplTest {

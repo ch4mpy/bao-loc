@@ -1,4 +1,4 @@
-package com.c4soft.tests.skazy.domain;
+package com.c4_soft.tests.baoloc.domain;
 
 import java.util.Collection;
 
@@ -7,7 +7,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import com.c4soft.tests.skazy.persistence.SolutionRepository;
+import com.c4_soft.tests.baoloc.persistence.SolutionRepository;
 
 @Service
 public class ProblemServiceImpl implements ProblemService {

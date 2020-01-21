@@ -1,4 +1,4 @@
-package com.c4soft.tests.skazy.domain;
+package com.c4_soft.tests.baoloc.domain;
 
 import org.springframework.stereotype.Component;
 
