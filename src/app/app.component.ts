@@ -36,7 +36,7 @@ import { Component } from '@angular/core';
   </p>
   <ul>
     <li><a href="http://bao-loc.azurewebsites.net/api.html">documentation de l'API REST</a></li>
-    <li><a href="http://bao-loc.azurewebsites.net/ut/jacoco/index.html"></a></li>
+    <li><a href="http://bao-loc.azurewebsites.net/ut/jacoco/index.html">couverture du code Spring par les tests unitaires</a></li>
     <li><a href="http://bao-loc.azurewebsites.net/ut/angular/index.html">couverture du code Angular par les tests unitaires</a></li>
   </ul>
 
