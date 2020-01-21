@@ -12,17 +12,17 @@
 // Define the palettes for your theme using the Material Design palettes available in palette.scss
 // (imported above). For each palette, you can optionally specify a default, lighter, and darker
 // hue. Available color palettes: https://material.io/design/color/
-$ui-primary: mat-palette($mat-indigo);
-$ui-accent: mat-palette($mat-pink, A200, A100, A400);
+$bao-loc-primary: mat-palette($mat-indigo);
+$bao-loc-accent: mat-palette($mat-pink, A200, A100, A400);
 
 // The warn palette is optional (defaults to red).
-$ui-warn: mat-palette($mat-red);
+$bao-loc-warn: mat-palette($mat-red);
 
 // Create the theme object (a Sass map containing all of the palettes).
-$ui-theme: mat-light-theme($ui-primary, $ui-accent, $ui-warn);
+$bao-loc-theme: mat-light-theme($bao-loc-primary, $bao-loc-accent, $bao-loc-warn);
 
 // Include theme styles for core and each component used in your app.
 // Alternatively, you can import and @include the theme mixins for each component
 // that you are using.
-@include angular-material-theme($ui-theme);
+@include angular-material-theme($bao-loc-theme);
 
