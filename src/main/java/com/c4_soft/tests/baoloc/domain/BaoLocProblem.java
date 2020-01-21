@@ -2,6 +2,9 @@ package com.c4_soft.tests.baoloc.domain;
 
 import org.springframework.stereotype.Component;
 
+/**
+ * @author Jérôme Wacongne &lt;ch4mp#64;c4-soft.com&gt;
+ */
 @Component
 public class BaoLocProblem implements Problem {
 

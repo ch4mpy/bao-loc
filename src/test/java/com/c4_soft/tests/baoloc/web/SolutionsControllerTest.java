@@ -39,6 +39,9 @@ import com.c4_soft.tests.baoloc.domain.Solution;
 import com.c4_soft.tests.baoloc.persistence.SolutionRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+/**
+ * @author Jérôme Wacongne &lt;ch4mp#64;c4-soft.com&gt;
+ */
 @ExtendWith(SpringExtension.class)
 @WebMvcTest(value = SolutionsController.class)
 @AutoConfigureRestDocs

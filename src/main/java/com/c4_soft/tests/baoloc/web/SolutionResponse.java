@@ -6,6 +6,9 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 import org.springframework.hateoas.RepresentationModel;
 
+/**
+ * @author Jérôme Wacongne &lt;ch4mp#64;c4-soft.com&gt;
+ */
 @XmlRootElement
 public class SolutionResponse extends RepresentationModel<SolutionResponse> implements Serializable {
 	private static final long serialVersionUID = -6427729256535659720L;

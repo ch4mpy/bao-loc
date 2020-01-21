@@ -16,6 +16,9 @@ import org.springframework.restdocs.payload.PayloadSubsectionExtractor;
 import org.springframework.restdocs.payload.ResponseFieldsSnippet;
 import org.springframework.restdocs.snippet.Snippet;
 
+/**
+ * @author Jérôme Wacongne &lt;ch4mp#64;c4-soft.com&gt;
+ */
 public class RestdocsSupport {
 
 	public static LinksSnippet links(LinkDescriptor... descriptors) {

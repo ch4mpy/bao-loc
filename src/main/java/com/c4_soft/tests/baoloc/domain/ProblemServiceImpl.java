@@ -9,6 +9,9 @@ import org.springframework.stereotype.Service;
 
 import com.c4_soft.tests.baoloc.persistence.SolutionRepository;
 
+/**
+ * @author Jérôme Wacongne &lt;ch4mp#64;c4-soft.com&gt;
+ */
 @Service
 public class ProblemServiceImpl implements ProblemService {
 

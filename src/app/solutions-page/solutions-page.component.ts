@@ -4,6 +4,9 @@ import { map } from 'rxjs/operators';
 import { PageMeta } from '../page';
 import { SolutionResponse, SolutionService } from '../solution.service';
 
+/**
+ * @author Jérôme Wacongne &lt;ch4mp#64;c4-soft.com&gt;
+ */
 @Component({
   selector: 'app-solutions-page',
   template: `

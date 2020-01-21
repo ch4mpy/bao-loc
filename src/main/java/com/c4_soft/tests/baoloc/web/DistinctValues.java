@@ -16,6 +16,9 @@ import org.springframework.expression.spel.standard.SpelExpressionParser;
 
 import com.c4_soft.tests.baoloc.web.DistinctValues.DistinctValuesValidator;
 
+/**
+ * @author Jérôme Wacongne &lt;ch4mp#64;c4-soft.com&gt;
+ */
 @Constraint(validatedBy = DistinctValuesValidator.class)
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)

@@ -1,6 +1,9 @@
 import { async, TestBed } from '@angular/core/testing';
 import { AppComponent } from './app.component';
 
+/**
+ * @author Jérôme Wacongne &lt;ch4mp#64;c4-soft.com&gt;
+ */
 describe('AppComponent', () => {
   let component: AppComponent;
   let rootElement: HTMLElement;

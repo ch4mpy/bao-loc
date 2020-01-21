@@ -5,6 +5,9 @@ import { MocksModule, SolutionsFixture } from '../test/mocks.module';
 import { SolutionServiceMock } from '../test/solution.service.mock';
 import { SolutionsPageComponent } from './solutions-page.component';
 
+/**
+ * @author Jérôme Wacongne &lt;ch4mp#64;c4-soft.com&gt;
+ */
 describe('SolutionsPageComponent', () => {
 
   let component: SolutionsPageComponent;

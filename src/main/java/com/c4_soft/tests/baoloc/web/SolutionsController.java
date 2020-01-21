@@ -23,6 +23,9 @@ import com.c4_soft.tests.baoloc.domain.Solution;
 import com.c4_soft.tests.baoloc.persistence.SolutionRepository;
 import com.sun.istack.NotNull;
 
+/**
+ * @author Jérôme Wacongne &lt;ch4mp#64;c4-soft.com&gt;
+ */
 @RestController
 @RequestMapping("/solutions")
 public class SolutionsController {

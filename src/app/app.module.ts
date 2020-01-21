@@ -16,6 +16,9 @@ import { SolutionEditFormComponent } from './solution-edit-form/solution-edit-fo
 import { SolutionRowComponent } from './solution-row/solution-row.component';
 import { SolutionsPageComponent } from './solutions-page/solutions-page.component';
 
+/**
+ * @author Jérôme Wacongne &lt;ch4mp#64;c4-soft.com&gt;
+ */
 @NgModule({
   declarations: [
     AppComponent,

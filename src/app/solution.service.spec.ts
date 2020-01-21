@@ -3,7 +3,9 @@ import { TestBed } from '@angular/core/testing';
 import { SolutionService } from './solution.service';
 import { SolutionsFixture } from './test/mocks.module';
 
-
+/**
+ * @author Jérôme Wacongne &lt;ch4mp#64;c4-soft.com&gt;
+ */
 describe('SolutionService', () => {
   let httpTestingController: HttpTestingController;
   let service: SolutionService;

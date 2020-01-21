@@ -10,6 +10,9 @@ import { SolutionServiceMock } from '../test/solution.service.mock';
 import { SolutionEditFormComponent } from './solution-edit-form.component';
 
 
+/**
+ * @author Jérôme Wacongne &lt;ch4mp#64;c4-soft.com&gt;
+ */
 describe('SolutionEditFormComponent', () => {
   let component: SolutionEditFormComponent;
   let fixture: ComponentFixture<SolutionEditFormComponent>;

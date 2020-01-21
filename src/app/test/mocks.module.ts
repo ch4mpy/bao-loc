@@ -42,6 +42,9 @@ export class SolutionsFixture {
 
 }
 
+/**
+ * @author Jérôme Wacongne &lt;ch4mp#64;c4-soft.com&gt;
+ */
 @NgModule({
   declarations: [
     MockSolutionRowComponent,

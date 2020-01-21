@@ -16,12 +16,11 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 
-import com.c4_soft.tests.baoloc.domain.Problem;
-import com.c4_soft.tests.baoloc.domain.ProblemServiceImpl;
-import com.c4_soft.tests.baoloc.domain.ProblemSolver;
-import com.c4_soft.tests.baoloc.domain.Solution;
 import com.c4_soft.tests.baoloc.persistence.SolutionRepository;
 
+/**
+ * @author Jérôme Wacongne &lt;ch4mp#64;c4-soft.com&gt;
+ */
 @SpringBootTest
 class ProblemServiceImplTest {
 

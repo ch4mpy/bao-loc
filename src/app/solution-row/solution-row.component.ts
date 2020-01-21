@@ -1,6 +1,9 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { SolutionResponse, SolutionService } from '../solution.service';
 
+/**
+ * @author Jérôme Wacongne &lt;ch4mp#64;c4-soft.com&gt;
+ */
 @Component({
   selector: 'app-solution-row',
   template: `

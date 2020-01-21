@@ -3,6 +3,9 @@ import { FormControl, FormGroup, ValidationErrors, ValidatorFn, Validators } fro
 import { Subscription } from 'rxjs';
 import { SolutionResponse, SolutionService } from '../solution.service';
 
+/**
+ * @author Jérôme Wacongne &lt;ch4mp#64;c4-soft.com&gt;
+ */
 @Component({
   selector: 'app-solution-edit-form',
   template: `

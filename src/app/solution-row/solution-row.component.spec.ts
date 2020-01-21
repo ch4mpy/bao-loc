@@ -3,6 +3,9 @@ import { SolutionResponse, SolutionService } from '../solution.service';
 import { SolutionServiceMock } from '../test/solution.service.mock';
 import { SolutionRowComponent } from './solution-row.component';
 
+/**
+ * @author Jérôme Wacongne &lt;ch4mp#64;c4-soft.com&gt;
+ */
 describe('SolutionRowComponent', () => {
 
   let component: SolutionRowComponent;

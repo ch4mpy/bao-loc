@@ -6,9 +6,9 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
 
-import com.c4_soft.tests.baoloc.domain.BaoLocProblem;
-import com.c4_soft.tests.baoloc.domain.Solution;
-
+/**
+ * @author Jérôme Wacongne &lt;ch4mp#64;c4-soft.com&gt;
+ */
 class BaoLocProblemTest {
 
 	@Test

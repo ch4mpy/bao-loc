@@ -1,6 +1,9 @@
 import { Component, Input } from '@angular/core';
 import { SolutionResponse } from '../solution.service';
 
+/**
+ * @author Jérôme Wacongne &lt;ch4mp#64;c4-soft.com&gt;
+ */
 @Component({
   selector: 'app-solution-row',
   template: `<div id="mock-solution-row">

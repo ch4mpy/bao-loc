@@ -8,6 +8,9 @@ import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
 
+/**
+ * @author Jérôme Wacongne &lt;ch4mp#64;c4-soft.com&gt;
+ */
 @Service
 public class BruteForceBoaLocProblemSolutionFinder implements ProblemSolver {
 
