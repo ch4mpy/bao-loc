@@ -22,8 +22,14 @@ ENV PATH="$PATH:$JAVA_HOME/bin"
 
 COPY --from=packager "$JAVA_HOME" "$JAVA_HOME"
 
-RUN groupadd spring && useradd -g spring spring
-USER spring:spring
+ENV USER="$USER"
+RUN addgroup -spring \
+    && adduser \
+    --disabled-password \
+    --gecos "" \
+    --ingroup "$USER" \
+    --no-create-home \
+    "$USER"
 
 VOLUME /tmp
 EXPOSE 8080
