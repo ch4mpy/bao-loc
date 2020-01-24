@@ -23,7 +23,7 @@ ENV PATH="$PATH:$JAVA_HOME/bin"
 COPY --from=packager "$JAVA_HOME" "$JAVA_HOME"
 
 ENV USER="$USER"
-RUN addgroup -spring \
+RUN addgroup "$USER" \
     && adduser \
     --disabled-password \
     --gecos "" \
