@@ -1,4 +1,4 @@
-FROM openjdk:11
+FROM openjdk:13-alpine
 
 LABEL maintainer="ch4mp@c4-soft.com"
 
