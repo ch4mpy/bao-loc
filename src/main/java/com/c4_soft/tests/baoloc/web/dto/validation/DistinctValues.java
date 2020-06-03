@@ -1,4 +1,4 @@
-package com.c4_soft.tests.baoloc.web;
+package com.c4_soft.tests.baoloc.web.dto.validation;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -14,7 +14,7 @@ import javax.validation.Payload;
 
 import org.springframework.expression.spel.standard.SpelExpressionParser;
 
-import com.c4_soft.tests.baoloc.web.DistinctValues.DistinctValuesValidator;
+import com.c4_soft.tests.baoloc.web.dto.validation.DistinctValues.DistinctValuesValidator;
 
 /**
  * @author Jérôme Wacongne &lt;ch4mp#64;c4-soft.com&gt;
@@ -48,7 +48,7 @@ public @interface DistinctValues {
 					.toArray();
 			for (int i = 0; i < values.length; ++i) {
 				for (int j = i + 1; j < values.length; ++j) {
-					if (values[i].equals(values[j])) {
+					if ((values[i] != null && values[i].equals(values[j])) || (values[i] == null && values[j] == null)) {
 						return false;
 					}
 				}

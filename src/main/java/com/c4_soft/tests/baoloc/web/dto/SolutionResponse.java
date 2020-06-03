@@ -1,4 +1,4 @@
-package com.c4_soft.tests.baoloc.web;
+package com.c4_soft.tests.baoloc.web.dto;
 
 import java.io.Serializable;
 

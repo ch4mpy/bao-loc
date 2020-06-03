@@ -37,6 +37,7 @@ import com.c4_soft.tests.baoloc.domain.Problem;
 import com.c4_soft.tests.baoloc.domain.ProblemService;
 import com.c4_soft.tests.baoloc.domain.Solution;
 import com.c4_soft.tests.baoloc.persistence.SolutionRepository;
+import com.c4_soft.tests.baoloc.web.dto.SolutionUpdateRequest;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 /**

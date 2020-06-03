@@ -1,4 +1,4 @@
-package com.c4_soft.tests.baoloc.web;
+package com.c4_soft.tests.baoloc.web.dto;
 
 import java.io.Serializable;
 
@@ -6,6 +6,7 @@ import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.xml.bind.annotation.XmlRootElement;
 
+import com.c4_soft.tests.baoloc.web.dto.validation.DistinctValues;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.sun.istack.NotNull;
 
