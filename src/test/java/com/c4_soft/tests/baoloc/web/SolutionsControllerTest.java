@@ -37,6 +37,8 @@ import com.c4_soft.tests.baoloc.domain.Problem;
 import com.c4_soft.tests.baoloc.domain.ProblemService;
 import com.c4_soft.tests.baoloc.domain.Solution;
 import com.c4_soft.tests.baoloc.persistence.SolutionRepository;
+import com.c4_soft.tests.baoloc.web.dto.SolutionResponse;
+import com.c4_soft.tests.baoloc.web.dto.SolutionResponseAssembler;
 import com.c4_soft.tests.baoloc.web.dto.SolutionUpdateRequest;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -67,12 +69,27 @@ class SolutionsControllerTest {
 	@MockBean
 	Problem problem;
 
+	@MockBean
+	SolutionResponseAssembler solutionResponseAssembler;
+
 	@Autowired
 	MockMvc mockMvc;
 
 	@Test
 	void whenGetSolutionsThenFirstPageIsReturned() throws Exception {
 		when(problemService.getSolutions(any())).thenReturn(new PageImpl<>(savedSolutions));
+		final var s = savedSolutions.get(0);
+		when(solutionResponseAssembler.toModel(any(Solution.class))).thenReturn(
+				new SolutionResponse(
+						s.getX1(),
+						s.getX2(),
+						s.getX3(),
+						s.getX4(),
+						s.getX5(),
+						s.getX6(),
+						s.getX7(),
+						s.getX8(),
+						s.getX9()));
 		mockMvc.perform(get("/solutions"))
 				.andExpect(status().isOk())
 				.andExpect(jsonPath("$._embedded.solutionResponseList", hasSize(savedSolutions.size())))
@@ -84,6 +101,19 @@ class SolutionsControllerTest {
 	void whenGetSolutionByExistingIdThenItIsReturned() throws Exception {
 		final var solution = savedSolutions.get(1);
 		when(solutionRepo.findById(1L)).thenReturn(Optional.of(solution));
+		when(solutionResponseAssembler.toModel(any(Solution.class))).thenAnswer(invocation -> {
+			final var s = (Solution) invocation.getArgument(0);
+			return new SolutionResponse(
+					s.getX1(),
+					s.getX2(),
+					s.getX3(),
+					s.getX4(),
+					s.getX5(),
+					s.getX6(),
+					s.getX7(),
+					s.getX8(),
+					s.getX9());
+		});
 		mockMvc.perform(get("/solutions/1"))
 				.andExpect(status().isOk())
 				.andExpect(jsonPath("$.x1", is(solution.getX1().intValue())))

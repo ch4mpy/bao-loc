@@ -1,7 +1,6 @@
 package com.c4_soft.tests.baoloc.domain;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
 
@@ -17,7 +16,7 @@ class BruteForceBoaLocProblemSolutionFinderTest {
 		final var pb = new BruteForceBoaLocProblemSolutionFinder();
 		final var actual = pb.solve(new BaoLocProblem());
 
-		assertTrue(actual.size() > 0);
+		assertEquals(136, actual.size());
 
 		actual.forEach(solution -> {
 			final var result = PB.computeValue(solution);

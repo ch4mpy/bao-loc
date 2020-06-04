@@ -6,9 +6,7 @@ import javax.validation.Valid;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PagedResourcesAssembler;
 import org.springframework.hateoas.PagedModel;
-import org.springframework.hateoas.server.mvc.RepresentationModelAssemblerSupport;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -22,6 +20,7 @@ import com.c4_soft.tests.baoloc.domain.ProblemService;
 import com.c4_soft.tests.baoloc.domain.Solution;
 import com.c4_soft.tests.baoloc.persistence.SolutionRepository;
 import com.c4_soft.tests.baoloc.web.dto.SolutionResponse;
+import com.c4_soft.tests.baoloc.web.dto.SolutionResponseAssembler;
 import com.c4_soft.tests.baoloc.web.dto.SolutionUpdateRequest;
 import com.sun.istack.NotNull;
 
@@ -106,35 +105,5 @@ public class SolutionsController {
 		solutionRepo.deleteAll();
 
 		return ResponseEntity.accepted().build();
-	}
-
-	@Component
-	public static class SolutionResponseAssembler
-			extends
-			RepresentationModelAssemblerSupport<Solution, SolutionResponse> {
-
-		public SolutionResponseAssembler() {
-			super(SolutionsController.class, SolutionResponse.class);
-		}
-
-		@Override
-		public SolutionResponse toModel(Solution solution) {
-			return createModelWithId(solution.getId(), solution);
-		}
-
-		@Override
-		protected SolutionResponse instantiateModel(Solution solution) {
-			return new SolutionResponse(
-					solution.getX1(),
-					solution.getX2(),
-					solution.getX3(),
-					solution.getX4(),
-					solution.getX5(),
-					solution.getX6(),
-					solution.getX7(),
-					solution.getX8(),
-					solution.getX9());
-		}
-
 	}
 }
