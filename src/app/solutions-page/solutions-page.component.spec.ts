@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { of } from 'rxjs';
 import { SolutionService } from '../solution.service';
 import { MocksModule, SolutionsFixture } from '../test/mocks.module';
@@ -59,7 +59,7 @@ describe('SolutionsPageComponent', () => {
     fixture.detectChanges();
   }
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [SolutionsPageComponent],
       providers: [

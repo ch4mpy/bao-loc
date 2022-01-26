@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { SolutionResponse, SolutionService } from '../solution.service';
 import { SolutionServiceMock } from '../test/solution.service.mock';
 import { SolutionRowComponent } from './solution-row.component';
@@ -17,7 +17,7 @@ describe('SolutionRowComponent', () => {
     return rootElement.querySelector('mat-card');
   }
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [SolutionRowComponent],
       providers: [
