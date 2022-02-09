@@ -1,38 +1,82 @@
-# Evaluation technique portant sur leproblème de "Bao-Loc"
+## Technical test part of Skazy.nc hiring process
 
-Réponse à  une évaluation technique dans le cadre d'un processus de recrutement.
+I was asked to produce an app related to the "Bao-Loc" problem:
+provide and test solution for an equation of unique integers between 1 and 9 such as
+x1 + 13 * x2 / x3 + x4 + 12 * x5 - x6 - 11 + x7 * x8 / x9 - 10.0 = 66
 
-## Pré-requis pour compiler / assembler / exécuter localement
+### Disclaimer
 
-**JDK 11** ou suppérieur.
+You should not copy code from this repo to answer the same evaluation as what is contained here is quite specific and you might easily be spotted as copier rather than original solution finder.
 
-Un wrapper maven est embarqué dans le projet.
-Des plugins se chargent de récupérer les outils nécessaires pour le build du projet Angular.
+### Algorithm
 
-Le packaging Docker ainsi que le déploiement sur le cloud Azure sont fait depuis Github.
+I chose a brute-force solution: as values are distinct, there are "only" 9! combination to test (that is is 362 880). Nothing to frighten a computer.
 
-## Livrables
+### Domain model
 
-[edit] j'ai stoppé l'instance azure qui était devenue payante. Il faut donc packager (`./mvnw package`) puis exécuter localement (`java -jar target/bao-loc-0.0.1-SNAPSHOT.jar` ou depuis votre IDE préféré) pour voir le résultat.
+A _Player_ can manipulate his own _Solution_ collection at `/bao-loc` end-point (CRUD).
 
-[L'intégration continue](https://github.com/ch4mpy/Bao-Loc/actions) package le projet dans un jar puis dans un conteneur Docker avant de le déployer sur le cloud [Azure](http://bao-loc.azurewebsites.net/).
+`BaoLocProblemService` is in charge of defining the problem and testing proposed solutions.
 
-Comme stipulé dans l'énnoncé, j'ai produit une application web `spring-boot` avec un front Angular.
+Brute-force algorithm was initially implemented on the server and all valid solutions saved in database.
+I now moved this algorithm in Angular app as "cheat", server being limited to CRUD + validation and persistance.
 
-J'ai choisi un build maven. Les commandes ordinaires pour ce type de projet s'appliquent donc. Examples:
-  * `./mvnw spring-boot:run` permet d'exécuter le projet mais sans accès aux resource annexes telles que les rapports de test ou documentation de l'API
-  * `./mvnw package` suffit à lancer le build (projet Angular compris)
-  * `java -jar target/bao-loc-0.0.1-SNAPSHOT.jar` exécute le projet (qu'il faut avoir packagé au préalable)
+### Architecture
 
-Les ressources disponibles sont :
-  * [l'UI Angular 9](http://localhost:8000/)
-  * l'API de manipulation des solutions qui peut être exploitée avec un client REST tel que Postman pointé sur l'URL http://localhost:8000/solutions
-  * [la documentation de cette API](http://localhost:8000/api.html)
-  * [les rapports de couverture du code java par les tests-unitaires](http://localhost:8000/ut/jacoco/index.html)
-  * [les rapports de couverture du code Angular par les tests-unitaires](http://localhost:8000/ut/angular/index.html)
+I propose a REST API:
+- built with Spring boot (web, JPA, validation, security, native, actuator)
+- documented with OpenAPI (Swagger)
+- backed by a relational database (H2) and 
+- manipulated by an Ionic / Angular front-end (desktop browser and mobile app)
 
-## Contraintes de qualité
+Security is managed by an OpenIDConnect authorization-server: an Auth0 free account.
 
-Une [action Github](https://github.com/ch4mpy/Bao-Loc/actions) assure l'intégration continue.
+### Build
 
-Le build échoue si la couverture du code par les tests passe en dessous de 80%, que ce soit pour la partie Spring ou Angular.
+#### From api folder
+- `./mvnw clean verify -Popenapi` triggers OpenAPI spec file generation (`API_SPEC_FILE`)
+- `./mvnw spring-boot:run` starts service on port 8080
+- `./mvnw clean install -Pbuild-image -DskipTests` generates a regular "JVM" docker image
+- `./mvnw clean install -Pbuild-native-image -DskipTests` generates a "native" docker image: 10x smaller, 10x faster to start, way longer to build
+
+#### From angular-workspace folder
+- `npm i -g @angular/cli @ionic/cli`
+- `npm i`
+
+### Run
+- `docker run -p 8080:8080 -t bao-loc:0.0.1-SNAPSHOT` (or simply `./mvnw spring-boot:run` from api folder)
+- `ionic serve` from angular-workspace folder
+
+### SSL
+
+OpenID requires HTTPS to prevent bearer tokens from transitting as clear text.
+
+As a prerequisite, you should have SSL certificate for your host (assumed to be in `~/.ssh/` and named `${HOSTNAME}_self_signed.crt` and `${HOSTNAME}_req_key.pem`).
+
+If you do not have SSL certificate for your host yet, you can follow [this tutorial](https://github.com/ch4mpy/starter#generating-self-signed-certificate) to generate one and then:
+- `cp ~/.ssh/${HOSTNAME}_self_signed.jks api/src/main/resources`
+- `cp ~/.ssh/${HOSTNAME}_self_signed.pem api/bindings/ca-certificates` (only required if your app consumes self-signed https services such as a local Keycloak authorization-server)
+
+#### Serve Spring API over SSL
+
+SSL is activated by default with certificate on classpath (`src/main/resources/self_signed.jks`). Activate `no-ssl` spring profile to serve over unsecured http.
+
+#### Serve Ionic app over SSL
+
+``` bash
+export APP_NAME=bao-loc
+sed -i 's/"serve": "ionic serve"/"serve": "ionic serve --ssl --external --public-host='$HOSTNAME' -c='$HOSTNAME'"/' projects/$APP_NAME/package.json
+sed -i 's/"android": "ionic capacitor run android -l/"android": "ionic capacitor run android -l --ssl --external --public-host='$HOSTNAME' -c='$HOSTNAME'/' projects/$APP_NAME/package.json
+cp projects/$APP_NAME/src/environments/environment.ts projects/$APP_NAME/src/environments/environment.$HOSTNAME.ts
+```
+
+In `angular.json`, for each app, under architect -> serve -> configurations, add (after editing HOSTNAME, USERNAME and APP_NAME)
+``` json
+            "HOSTNAME": {
+              "browserTarget": "APP_NAME:build:development",
+              "host": "HOSTNAME",
+              "ssl": true,
+              "sslCert": "C:/Users/USERNAME/.ssh/HOSTNAME_self_signed.crt",
+              "sslKey": "C:/Users/USERNAME/.ssh/HOSTNAME_req_key.pem"
+            },
+```

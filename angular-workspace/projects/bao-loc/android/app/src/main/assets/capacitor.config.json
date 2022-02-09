@@ -1,0 +1,9 @@
+{
+	"appId": "com.c4_soft.bao_loc",
+	"appName": "bao-loc",
+	"webDir": "../../dist/bao-loc",
+	"server": {
+		"hostname": "localhost",
+		"androidScheme": "https"
+	}
+}

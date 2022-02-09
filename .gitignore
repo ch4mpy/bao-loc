@@ -69,3 +69,7 @@ testem.log
 .DS_Store
 Thumbs.db
 
+/.metadata/
+
+**/*.jks
+**/*.crt

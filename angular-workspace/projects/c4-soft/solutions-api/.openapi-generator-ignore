@@ -1,0 +1,7 @@
+.openapi-generator-ignore
+.gitignore
+ng-package.json
+package.json
+git_push.sh
+README.md
+tsconfig.json
