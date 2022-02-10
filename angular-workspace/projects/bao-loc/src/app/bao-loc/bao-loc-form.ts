@@ -1,3 +1,4 @@
+import { ChangeDetectorRef } from "@angular/core";
 import { AbstractControl, FormControl, FormGroup, ValidationErrors, ValidatorFn, Validators } from "@angular/forms";
 import { SolutionUpdateRequest } from "@c4-soft/solutions-api";
 import { Solution } from "./solution";
@@ -14,7 +15,7 @@ export class BaoLocForm {
   readonly x8 = new FormControl('', [Validators.required, this.inputValidator()]);
   readonly x9 = new FormControl('', [Validators.required, this.inputValidator()]);
 
-  constructor() {
+  constructor(private cdr: ChangeDetectorRef) {
     this.group = new FormGroup(
       {
         x1: this.x1,
@@ -41,6 +42,7 @@ export class BaoLocForm {
     this.x7.patchValue(s.x7);
     this.x8.patchValue(s.x8);
     this.x9.patchValue(s.x9);
+    this.cdr.detectChanges()
   }
 
   get solution(): Solution {

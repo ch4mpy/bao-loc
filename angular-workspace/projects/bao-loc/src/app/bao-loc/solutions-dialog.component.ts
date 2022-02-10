@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { SolutionsControllerApi } from '@c4-soft/solutions-api';
 import { LoadingController, ModalController } from '@ionic/angular';
 import { SolutionResponse } from 'projects/c4-soft/solutions-api';
@@ -32,6 +32,7 @@ export class SolutionsDialogComponent implements OnInit {
     private solutionsApi: SolutionsControllerApi,
     private modalController: ModalController,
     private loadingController: LoadingController,
+    private cdr: ChangeDetectorRef,
   ) {}
 
   async ngOnInit() {
@@ -41,8 +42,10 @@ export class SolutionsDialogComponent implements OnInit {
       .retrievePlayerSolutions()
       .pipe(finalize(() => loading.dismiss()))
       .subscribe(
-        (solutions) =>
-          (this.solutions = solutions.sort((a, b) => b.id - a.id) || [])
+        (solutions) => {
+          this.solutions = solutions.sort((a, b) => b.id - a.id) || []
+          this.cdr.detectChanges()
+        }
       );
   }
 

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { SolutionResponse, SolutionsControllerApi } from '@c4-soft/solutions-api';
 import { LoadingController } from '@ionic/angular';
 import { Subscription } from 'rxjs/internal/Subscription';
@@ -253,7 +253,7 @@ import { BaoLocForm } from './bao-loc-form';
   ],
 })
 export class BaoLocPage implements OnInit {
-  form = new BaoLocForm();
+  form: BaoLocForm;
 
   formSucbscription?: Subscription;
 
@@ -262,7 +262,10 @@ export class BaoLocPage implements OnInit {
   constructor(
     private solutionsApi: SolutionsControllerApi,
     public loadingController: LoadingController,
-  ) {}
+    cdr: ChangeDetectorRef,
+  ) {
+    this.form = new BaoLocForm(cdr)
+  }
 
   ngOnInit() {
     this.formSucbscription = this.form.group.valueChanges.subscribe(() => {

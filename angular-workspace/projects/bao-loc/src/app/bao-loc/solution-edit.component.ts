@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { SolutionResponse, SolutionsControllerApi } from '@c4-soft/solutions-api';
 import { BaoLocForm } from './bao-loc-form';
 import { Solution } from './solution';
@@ -117,11 +117,13 @@ export class SolutionsEditComponent implements OnInit {
   @Output()
   onSolutionSelected = new EventEmitter<SolutionResponse>()
 
-  form = new BaoLocForm();
+  form: BaoLocForm;
 
   isExpectedResult?: boolean
 
-  constructor(private solutionsApi: SolutionsControllerApi) {}
+  constructor(private solutionsApi: SolutionsControllerApi, cdr: ChangeDetectorRef) {
+    this.form = new BaoLocForm(cdr)
+  }
 
   ngOnInit() {
     this.form.updateSolution(

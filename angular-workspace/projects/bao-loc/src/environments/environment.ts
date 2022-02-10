@@ -5,7 +5,7 @@ import { AuthConfig, OAuthModuleConfig } from 'angular-oauth2-oidc';
 
 export const authConfig: AuthConfig = {
   issuer: 'https://dev-ch4mpy.eu.auth0.com/',
-  redirectUri: window.location.href,
+  redirectUri: window.location.origin,
   postLogoutRedirectUri: window.location.origin,
   clientId: 'lRHwmwQr3bhkKZeezYD8UAaGna3KSnBB',
   responseType: 'code',

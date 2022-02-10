@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, OnDestroy, OnInit } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 import { Deeplinks } from '@awesome-cordova-plugins/deeplinks/ngx';
 import { MenuController, NavController, Platform } from '@ionic/angular';
 import { Subscription } from 'rxjs/internal/Subscription';
@@ -89,29 +89,15 @@ export class AppComponent implements OnInit, AfterViewInit, OnDestroy {
     public userService: UserService,
     private platform: Platform,
     private deeplinks: Deeplinks,
-    private navController: NavController
+    private navController: NavController,
+    private cdr: ChangeDetectorRef
   ) {}
 
   ngOnInit(): void {
-    this.platform.ready().then((p) => {
-      console.log(this.platform.platforms());
-      if (this.platform.is('cordova')) {
-        this.deeplinksRouteSubscription = this.deeplinks
-          .routeWithNavController(this.navController, {})
-          .subscribe({
-            next: async (match) => {
-              await this.navController.navigateForward(
-                match.$link.path + '?' + match.$link.queryString
-              );
-            },
-            error: (nomatch) =>
-              console.error(
-                "Got a deeplink that didn't match",
-                JSON.stringify(nomatch)
-              ),
-          });
-      }
-    });
+    console.log('PLATFORMS: ' + this.platform.platforms());
+    if (this.platform.is('capacitor')) {
+      this.setupDeeplinks();
+    }
   }
 
   public openMenu() {
@@ -122,5 +108,25 @@ export class AppComponent implements OnInit, AfterViewInit, OnDestroy {
 
   ngOnDestroy() {
     this.deeplinksRouteSubscription?.unsubscribe();
+  }
+
+  private setupDeeplinks() {
+    this.deeplinksRouteSubscription = this.deeplinks
+      .routeWithNavController(this.navController, {})
+      .subscribe({
+        next: async (match) => {
+          console.log('deeplink matched: ', match)
+          await this.navController.navigateForward(
+            match.$link.path + '?' + match.$link.queryString
+          );
+          await this.userService.refresh()
+          this.cdr.detectChanges()
+        },
+        error: (nomatch) =>
+          console.error(
+            "Deeplink didn't match",
+            JSON.stringify(nomatch)
+          ),
+      });
   }
 }

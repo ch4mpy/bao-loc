@@ -20,7 +20,7 @@ import { UserService } from '../user.service';
       </div>
       <div *ngIf="!!userService.name">
         <ion-avatar>
-          <img [src]="userService.pictureUri" />
+          <img [src]="userService.picture" />
         </ion-avatar>
         <ion-button (click)="logout()">Logout</ion-button>
       </div>

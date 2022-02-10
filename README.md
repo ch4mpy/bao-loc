@@ -1,33 +1,33 @@
-## Technical test part of Skazy.nc hiring process
+## Technical test
+
+This repo was initiated during an hiring process as my answer to a technical test. It eveloved as a demonstrator for the [maven archetype](https://github.com/ch4mpy/spring-addons/tree/master/spring-webmvc-archetype) and [scripts](https://github.com/ch4mpy/starter/tree/master/angular-workspace-template) I maintain to easily initiate projects.
 
 I was asked to produce an app related to the "Bao-Loc" problem:
 provide and test solution for an equation of unique integers between 1 and 9 such as
-x1 + 13 * x2 / x3 + x4 + 12 * x5 - x6 - 11 + x7 * x8 / x9 - 10.0 = 66
+x1 + 13 * x2 / x3 + x4 + 12 * x5 - x6 - 11 + x7 * x8 / x9 - 10 = 66
 
 ### Disclaimer
 
-You should not copy code from this repo to answer the same evaluation as what is contained here is quite specific and you might easily be spotted as copier rather than original solution finder.
-
-### Algorithm
-
-I chose a brute-force solution: as values are distinct, there are "only" 9! combination to test (that is is 362 880). Nothing to frighten a computer.
+You should not copy code from this repo to answer a thecnical test: what is contained here is quite specific and you'll be spotted as copier rather than original solution finder.
 
 ### Domain model
 
-A _Player_ can manipulate his own _Solution_ collection at `/bao-loc` end-point (CRUD).
+A _Player_ can manipulate his own _Solution_ collection at `/solutions` end-point (CRUD).
 
 `BaoLocProblemService` is in charge of defining the problem and testing proposed solutions.
 
 Brute-force algorithm was initially implemented on the server and all valid solutions saved in database.
-I now moved this algorithm in Angular app as "cheat", server being limited to CRUD + validation and persistance.
+I now moved this algorithm in Angular app as "cheat" modal, server being limited to CRUD + validation and persistance.
 
 ### Architecture
 
-I propose a REST API:
-- built with Spring boot (web, JPA, validation, security, native, actuator)
-- documented with OpenAPI (Swagger)
-- backed by a relational database (H2) and 
-- manipulated by an Ionic / Angular front-end (desktop browser and mobile app)
+I propose 
+- a REST API
+  - built with Spring boot (web, JPA, validation, security, native, actuator)
+  - documented with OpenAPI (Swagger)
+  - backed by a relational database (H2)
+  - secured with OpenID: authentication enables the API to scope solutions to current user ones for all CRUD operations
+- an Ionic-Angular front-end (desktop browser and mobile app) with an API client lib generated from OpenAPI spec
 
 Security is managed by an OpenIDConnect authorization-server: an Auth0 free account.
 
@@ -54,7 +54,7 @@ OpenID requires HTTPS to prevent bearer tokens from transitting as clear text.
 As a prerequisite, you should have SSL certificate for your host (assumed to be in `~/.ssh/` and named `${HOSTNAME}_self_signed.crt` and `${HOSTNAME}_req_key.pem`).
 
 If you do not have SSL certificate for your host yet, you can follow [this tutorial](https://github.com/ch4mpy/starter#generating-self-signed-certificate) to generate one and then:
-- `cp ~/.ssh/${HOSTNAME}_self_signed.jks api/src/main/resources`
+- `cp ~/.ssh/${HOSTNAME}_self_signed.jks api/src/main/resources/self_signed.jks`
 - `cp ~/.ssh/${HOSTNAME}_self_signed.pem api/bindings/ca-certificates` (only required if your app consumes self-signed https services such as a local Keycloak authorization-server)
 
 #### Serve Spring API over SSL

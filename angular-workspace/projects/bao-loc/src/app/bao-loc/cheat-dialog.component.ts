@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { ChangeDetectorRef, Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { LoadingController, ModalController } from '@ionic/angular';
 import { Solution } from './solution';
 
@@ -26,6 +26,7 @@ export class CheatDialogComponent implements OnInit {
   constructor(
     private modalController: ModalController,
     public loadingController: LoadingController,
+    private cdr: ChangeDetectorRef,
   ) {}
 
   async ngOnInit() {
@@ -37,6 +38,7 @@ export class CheatDialogComponent implements OnInit {
       this.solutions
     );
     loading.dismiss()
+    this.cdr.detectChanges()
   }
 
   selectSolution(s: Solution) {

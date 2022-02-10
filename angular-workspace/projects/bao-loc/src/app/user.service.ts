@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { ChangeDetectorRef, Injectable } from '@angular/core';
 import { OAuthService } from 'angular-oauth2-oidc';
 import { environment } from '../environments/environment';
 
@@ -6,46 +6,57 @@ import { environment } from '../environments/environment';
   providedIn: 'root',
 })
 export class UserService {
-  private _name!: string;
-  private _sub!: string;
-  private _picture!: string;
+  name!: string;
+  picture!: string;
+  sub!: string;
 
   constructor(private oauthService: OAuthService) {
     this.refreshUserData(undefined);
     this.oauthService.configure(environment.authConfig);
-    this.oauthService
-      .loadDiscoveryDocumentAndTryLogin()
-      .then(async () => {
-        if (!oauthService.hasValidAccessToken()) {
-          await oauthService.silentRefresh();
-        }
-      })
-      .then(() => {
-        this.refreshUserData(oauthService.getIdentityClaims());
-      });
-  }
-
-  get name(): string {
-    return this._name;
-  }
-
-  get pictureUri(): string {
-    return this._picture;
+    this.refresh();
   }
 
   get isAuthenticated(): boolean {
-    return !!this._sub;
+    return !!this.sub;
+  }
+
+  async refresh() {
+    if (!this.oauthService.discoveryDocumentLoaded) {
+      await this.oauthService.loadDiscoveryDocument();
+    }
+    if (
+      !!this.oauthService.getIdentityClaims() &&
+      this.oauthService.hasValidAccessToken()
+    ) {
+      this.refreshUserData(this.oauthService.getIdentityClaims());
+    } else {
+      await this.oauthService
+        .tryLogin()
+        .then(async (loginResp) => {
+          console.log('loginResp: ', loginResp)
+          if (!this.oauthService.hasValidAccessToken()) {
+            await this.oauthService.silentRefresh();
+          }
+        })
+        .then(() => {
+          this.refreshUserData(this.oauthService.getIdentityClaims());
+        });
+    }
   }
 
   login() {
     this.oauthService.initLoginFlow();
-    this.oauthService.tryLogin().then((isSuccess) => {
-      if (isSuccess) {
-        this.refreshUserData(this.oauthService.getIdentityClaims());
-      } else {
-        this.refreshUserData(undefined);
-      }
-    });
+    this.oauthService.tryLogin().then(
+      (isSuccess) => {
+        console.log('Login isSuccess: ', isSuccess);
+        if (isSuccess) {
+          this.refreshUserData(this.oauthService.getIdentityClaims());
+        } else {
+          this.refreshUserData(undefined);
+        }
+      },
+      (error) => console.log('Login error: ', error)
+    );
   }
 
   logout() {
@@ -54,8 +65,13 @@ export class UserService {
   }
 
   private refreshUserData(idClaims: any) {
-    this._name = idClaims?.name || '';
-    this._sub = idClaims?.sub || '';
-    this._picture = idClaims?.picture || '';
+    console.log('refreshUserData: ', idClaims);
+    this.name = idClaims?.name || '';
+    this.sub = idClaims?.sub || '';
+    this.picture = idClaims?.picture || '';
+  }
+
+  get idClaims() {
+    return this.oauthService.getIdentityClaims();
   }
 }
