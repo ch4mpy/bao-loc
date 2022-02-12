@@ -1,4 +1,10 @@
-import { ChangeDetectorRef, Component, EventEmitter, OnInit, Output } from '@angular/core';
+import {
+  ChangeDetectorRef,
+  Component,
+  EventEmitter,
+  OnInit,
+  Output,
+} from '@angular/core';
 import { LoadingController, ModalController } from '@ionic/angular';
 import { Solution } from './solution';
 
@@ -11,8 +17,19 @@ import { Solution } from './solution';
     </ion-header>
     <ion-content>
       <ion-item *ngFor="let s of solutions" (click)="selectSolution(s)">
-        {{ s.x1 }}, {{ s.x2 }}, {{ s.x3 }}, {{ s.x4 }}, {{ s.x5 }}, {{ s.x6 }},
-        {{ s.x7 }}, {{ s.x8 }}, {{ s.x9 }}
+        <ion-grid>
+          <ion-row>
+            <ion-col>{{ s.x1 }}</ion-col>
+            <ion-col>{{ s.x2 }}</ion-col>
+            <ion-col>{{ s.x3 }}</ion-col>
+            <ion-col>{{ s.x4 }}</ion-col>
+            <ion-col>{{ s.x5 }}</ion-col>
+            <ion-col>{{ s.x6 }}</ion-col>
+            <ion-col>{{ s.x7 }}</ion-col>
+            <ion-col>{{ s.x8 }}</ion-col>
+            <ion-col>{{ s.x9 }}</ion-col>
+          </ion-row>
+        </ion-grid>
       </ion-item>
     </ion-content>`,
   styles: [],
@@ -26,19 +43,19 @@ export class CheatDialogComponent implements OnInit {
   constructor(
     private modalController: ModalController,
     public loadingController: LoadingController,
-    private cdr: ChangeDetectorRef,
+    private cdr: ChangeDetectorRef
   ) {}
 
   async ngOnInit() {
-    const loading = await this.loadingController.create()
-    await loading.present()
+    const loading = await this.loadingController.create();
+    await loading.present();
     CheatDialogComponent.explore(
       [1, 2, 3, 4, 5, 6, 7, 8, 9],
       [],
       this.solutions
     );
-    loading.dismiss()
-    this.cdr.detectChanges()
+    loading.dismiss();
+    this.cdr.detectChanges();
   }
 
   selectSolution(s: Solution) {

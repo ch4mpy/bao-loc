@@ -1,12 +1,14 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { IsAuthenticatedGuard } from '../is-authenticated.guard';
 
-import { UserAccountPage } from './user-account.page';
+import { UserAccountScreen } from './user-account.screen';
 
 const routes: Routes = [
   {
     path: '',
-    component: UserAccountPage
+    canActivate: [IsAuthenticatedGuard],
+    component: UserAccountScreen
   }
 ];
 

@@ -86,7 +86,6 @@
 			<!-- might want to scope H2 with "test" and add org.postgresql:postgresql or something for "runtime" -->
 			<groupId>com.h2database</groupId>
 			<artifactId>h2</artifactId>
-			<scope>runtime</scope>
 		</dependency>
 
 		<dependency>

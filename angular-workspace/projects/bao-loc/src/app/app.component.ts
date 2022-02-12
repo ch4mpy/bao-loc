@@ -5,7 +5,7 @@ import { Subscription } from 'rxjs/internal/Subscription';
 import { BaoLocPage } from './bao-loc/bao-loc.page';
 import { InfoPage } from './info/info.page';
 import { SettingsScreen } from './settings/settings.screen';
-import { UserAccountPage } from './user-account/user-account.page';
+import { UserAccountScreen } from './user-account/user-account.screen';
 import { UserService } from './user.service';
 
 @Component({
@@ -115,7 +115,7 @@ export class AppComponent implements OnInit, AfterViewInit, OnDestroy {
       .routeWithNavController(this.navController, {})
       .subscribe({
         next: async (match) => {
-          console.log('deeplink matched: ', match)
+          console.log('Deeplink matched: ', match)
           await this.navController.navigateForward(
             match.$link.path + '?' + match.$link.queryString
           );

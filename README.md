@@ -44,7 +44,13 @@ Security is managed by an OpenIDConnect authorization-server: an Auth0 free acco
 - `npm i`
 
 ### Run
-- `docker run -p 8080:8080 -t bao-loc:0.0.1-SNAPSHOT` (or simply `./mvnw spring-boot:run` from api folder)
+- ```bash
+docker run\
+ --add-host $HOSTNAME:$HOST_IP\
+ -e SERVER_SSL_KEY_PASSWORD=$SERVER_SSL_KEY_PASSWORD\
+ -e SERVER_SSL_KEY_STORE_PASSWORD=$SERVER_SSL_KEY_STORE_PASSWORD\
+ -p 8080:8080 -t solutions-api:1.0.0-SNAPSHOT
+``` (or simply `./mvnw spring-boot:run` from api folder)
 - `ionic serve` from angular-workspace folder
 
 ### SSL
@@ -63,20 +69,5 @@ SSL is activated by default with certificate on classpath (`src/main/resources/s
 
 #### Serve Ionic app over SSL
 
-``` bash
-export APP_NAME=bao-loc
-sed -i 's/"serve": "ionic serve"/"serve": "ionic serve --ssl --external --public-host='$HOSTNAME' -c='$HOSTNAME'"/' projects/$APP_NAME/package.json
-sed -i 's/"android": "ionic capacitor run android -l/"android": "ionic capacitor run android -l --ssl --external --public-host='$HOSTNAME' -c='$HOSTNAME'/' projects/$APP_NAME/package.json
-cp projects/$APP_NAME/src/environments/environment.ts projects/$APP_NAME/src/environments/environment.$HOSTNAME.ts
-```
-
-In `angular.json`, for each app, under architect -> serve -> configurations, add (after editing HOSTNAME, USERNAME and APP_NAME)
-``` json
-            "HOSTNAME": {
-              "browserTarget": "APP_NAME:build:development",
-              "host": "HOSTNAME",
-              "ssl": true,
-              "sslCert": "C:/Users/USERNAME/.ssh/HOSTNAME_self_signed.crt",
-              "sslKey": "C:/Users/USERNAME/.ssh/HOSTNAME_req_key.pem"
-            },
-```
+- Replace `bravo-ch4mp` with the value of your `$HOSTNAME` in `projects/bao-loc/package.json`
+- Edit `angular.json`, for each app, under architect -> serve -> configurations -> `bravo-ch4mp` to replace `bravo-ch4mp` with `$HOSTNAME` and update, `host`, `sslCert` and `sslKey` properties

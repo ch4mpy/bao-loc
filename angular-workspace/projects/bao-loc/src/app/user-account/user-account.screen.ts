@@ -14,7 +14,6 @@ import { UserService } from '../user.service';
     </ion-header>
 
     <ion-content>
-      <div>redirectUti: {{redirectUti}}</div>
       <div *ngIf="!userService.name">
         <ion-button (click)="login()">Login</ion-button>
       </div>
@@ -27,7 +26,7 @@ import { UserService } from '../user.service';
     </ion-content>`,
   styles: [],
 })
-export class UserAccountPage implements OnInit {
+export class UserAccountScreen implements OnInit {
   constructor(readonly userService: UserService) {}
 
   ngOnInit() {}

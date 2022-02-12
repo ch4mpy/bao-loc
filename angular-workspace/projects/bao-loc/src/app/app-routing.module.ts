@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { IsAuthenticatedGuard } from './is-authenticated.guard';
 
 const routes: Routes = [
   {
@@ -13,6 +14,7 @@ const routes: Routes = [
   },
   {
     path: 'bao-loc',
+    canActivate: [IsAuthenticatedGuard],
     loadChildren: () => import('./bao-loc/bao-loc.module').then( m => m.BaoLocPageModule)
   },
   {
@@ -22,6 +24,10 @@ const routes: Routes = [
   {
     path: 'settings',
     loadChildren: () => import('./settings/settings.module').then( m => m.SettingsPageModule)
+  },
+  {
+    path: '**',
+    redirectTo: 'info',
   },
 ];
 

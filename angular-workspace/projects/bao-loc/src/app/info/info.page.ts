@@ -15,61 +15,11 @@ import { Component, OnInit } from '@angular/core';
         style="padding: 2em; max-width: 920px; margin-left: auto; margin-right: auto;"
       >
         <p>
-          Vous consultez le livrable d'une
-          <a href="https://github.com/ch4mpy/Bao-Loc">évaluation technique</a>
-          comportant quatre étapes:
+          Application publiée en formats web et mobiles dont la fonction principale
+          est d'être un démonstrateur technique pour :
         </p>
-        <ol>
-          <li lines="none" detail="false">
-            écriture d'un algorithme trouvant les solutions au problème de math
-          </li>
-          <li lines="none" detail="false">
-            enregistrer les résultats dans une base de données H2 en utilisant
-            JPA
-          </li>
-          <li lines="none" detail="false">
-            exposer une API REST avec spring-webmvc pour récupérer, modifier et
-            supprimer les résultats
-          </li>
-          <li lines="none" detail="false">
-            créer une interface graphique avec Angular pour consulter, modifier
-            et supprimer les résultats ainsi que de relancer la recherche de
-            solutions
-          </li>
-        </ol>
-        <p>
-          L'énoncé stipulant que
-          <i>
-            &laquo; Des mathématiciens européens chevronnés n’ont pas été en
-            mesure de le résoudre &raquo;
-          </i>
-          , je n'ai pas cherché de solution mathématique élégante et me suis
-          contenté d'un algorithme de force brute, c'est à dire soumettant les
-          9! (soit 362 880) combinaisons candidates à la formule du problème de
-          Bao-Loc et ne retenant que celles donnant le résultat attendu.
-        </p>
-        <p>
-          Je suis allé un peu plus loin que la demande en intégrant une
-          identification OpenID de l'utilisateur (fournie par Auth0). <br />
-          Celà permet d'avoir un jeu de solution par utilisateur : en s'appuyant
-          sur son identité, on peut ne manipuler que ses solutions lors des
-          appels d'API.<br />
-          Les utilisateur avec un role <i>ADMIN</i> peuvent accéder aux
-          solutions des autres, mais cette fonctionnalité n'est pas exploitée
-          dans le client livré.
-        </p>
-        <p>En plus des frameworks imposés, jai utilisé:</p>
         <ul>
           <li>
-            Ionic (avec Angular). L'application peut donc être assemblée pour un
-            serveur web ou sous forme d'application native Android ou iOS.
-          </li>
-          <li>
-            spring-native qui permet un démarrage de l'API en 0,5 seconde avec
-            une empreinte mémoire minimale
-          </li>
-          <li>
-            spring-security avec
             <a href="https://github.com/ch4mpy/spring-addons">
               une extension
             </a>
@@ -80,13 +30,6 @@ import { Component, OnInit } from '@angular/core';
               maven-central
             </a>
           </li>
-          <li>spring-data-jpa pour l'ORM et la persistence en BDD</li>
-          <li>
-            springdoc-openapi pour la génération de la spec OpenAPI (Swagger)
-          </li>
-        </ul>
-        <p>Je me suis également appuyé sur :</p>
-        <ul>
           <li>
             <a
               href="https://github.com/ch4mpy/starter/tree/master/spring-webmvc-archetype"
@@ -99,8 +42,6 @@ import { Component, OnInit } from '@angular/core';
             >
               maven-central
             </a>
-            pour la génération d'APIs REST Spring (native, webmvc, jpa,
-            security, openapi) sécurisées avec OpenID
           </li>
           <li>
             <a
@@ -112,6 +53,19 @@ import { Component, OnInit } from '@angular/core';
             pages de compte utilisateur et de configuration) ainsi qu'une
             librairie cliente de l'API générée à partir de la spec OpenAPI
           </li>
+        </ul>
+        <p>Le cas d'utilisation est le problème dit de "Bao-Loc". Il permet de mettre en application entre autres :</p>
+        <ul>
+          <li>architecture logicielle modulaire</li>
+          <li>échanges client / serveur REST</li>
+          <li>génération de code client à partir du code serveur (par l'intermédiaire d'une spec OpenAPI)
+          <li>identification des utilisateurs et sécurisation des échanges avec Open ID Connect</li>
+          <li>validation des saisies utilisateurs (Angular & javax.validation)</li>
+          <li>navigation entre "écrans" d'une Single Page Application (chacun dans un module avec chargement différé)</li>
+          <li>intercepteur HTTP et garde Angular</li>
+          <li>mapping domaine &lt;-&gt; DTOs avec mapstruct</li>
+          <li>ORM avec JPA et utilisation de JpaRepository Spring</li>
+          <li>tests unitaires Java incluant la sécurité OpenID</li>
         </ul>
       </div>
     </ion-content>`,
