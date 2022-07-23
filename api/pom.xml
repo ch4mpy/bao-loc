@@ -10,7 +10,7 @@
 		<relativePath />
 	</parent>
 	<groupId>com.c4-soft.bao-loc</groupId>
-	<artifactId>solutions-api</artifactId>
+	<artifactId>api</artifactId>
 
 
 	<properties>
@@ -379,7 +379,7 @@
 							<version>${springdoc-openapi-maven-plugin.version}</version>
 							<configuration>
 								<apiDocsUrl>${integration-tests.scheme}://${integration-tests.hostname}:${integration-tests.port}/v3/api-docs</apiDocsUrl>
-								<outputFileName>${project.artifactId}.openapi.json</outputFileName>
+								<outputFileName>solutions-api.openapi.json</outputFileName>
 								<outputDir>${springdoc-openapi.output-dir}/..</outputDir>
 								<skip>false</skip>
 							</configuration>

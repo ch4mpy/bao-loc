@@ -17,29 +17,6 @@ jobs:
 
       - name: Make Maven Wrapper executable
         if: contains(matrix.os, 'win') == false
-        run: chmod +x ./mvnw
+        run: chmod +x ./api/mvnw
       - name: Package with Maven
-        run: ./mvnw clean package
-
-      - name: 'Login via Azure CLI'
-        uses: azure/login@v1
-        with:
-          creds: ${{ secrets.AZURE_CREDENTIALS }}
-      - uses: azure/docker-login@v1
-        with:
-          login-server: baolocregistry.azurecr.io
-          username: baolocregistry
-          password: ${{ secrets.AZURE_PASSWORD }}
-    
-      - name: Build Docker image
-        run: docker build . -t baolocregistry.azurecr.io/baoloc:${{ github.sha }}
-      - name: Publish to Azure
-        run: docker push baolocregistry.azurecr.io/baoloc:${{ github.sha }}
-      
-      - uses: azure/webapps-container-deploy@v1
-        with:
-          app-name: 'bao-loc'
-          images: 'baolocregistry.azurecr.io/baoloc:${{ github.sha }}'
-
-      - name: Azure logout
-        run: az logout
+        run: ./api/mvnw clean package
