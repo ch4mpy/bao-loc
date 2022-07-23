@@ -17,6 +17,6 @@ jobs:
 
       - name: Make Maven Wrapper executable
         if: contains(matrix.os, 'win') == false
-        run: chmod +x ./api/mvnw
+        run: chmod +x ./mvnw
       - name: Package with Maven
-        run: ./api/mvnw clean package
+        run: ./mvnw clean package
