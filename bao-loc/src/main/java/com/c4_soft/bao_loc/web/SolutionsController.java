@@ -25,8 +25,8 @@ import com.c4_soft.bao_loc.domain.jpa.SolutionRepository;
 import com.c4_soft.bao_loc.exceptions.NotAcceptableSolutionException;
 import com.c4_soft.bao_loc.web.dtos.SolutionResponse;
 import com.c4_soft.bao_loc.web.dtos.SolutionUpdateRequest;
-import com.c4_soft.springaddons.security.oauth2.oidc.OidcAuthentication;
-import com.c4_soft.springaddons.security.oauth2.oidc.OidcToken;
+import com.c4_soft.springaddons.security.oauth2.OAuthentication;
+import com.c4_soft.springaddons.security.oauth2.OpenidClaimSet;
 
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.enums.ParameterIn;
@@ -48,13 +48,13 @@ public class SolutionsController {
 	private final ProblemService problemService;
 
 	@GetMapping()
-	public List<SolutionResponse> retrievePlayerSolutions(OidcAuthentication<OidcToken> auth) {
-		return solutionRepo.findByPlayerSubject(auth.getToken().getSubject()).stream().map(solutionMapper::toDto).collect(Collectors.toList());
+	public List<SolutionResponse> retrievePlayerSolutions(OAuthentication<OpenidClaimSet> auth) {
+		return solutionRepo.findByPlayerSubject(auth.getName()).stream().map(solutionMapper::toDto).collect(Collectors.toList());
 	}
 
 	@PostMapping()
-	public ResponseEntity<?> createSolution(@RequestBody @Valid SolutionUpdateRequest dto, OidcAuthentication<OidcToken> auth) {
-		var player = playerRepo.findById(auth.getToken().getSubject()).orElseGet(() -> playerRepo.save(new Player(auth.getToken().getSubject(), List.of())));
+	public ResponseEntity<?> createSolution(@RequestBody @Valid SolutionUpdateRequest dto, OAuthentication<OpenidClaimSet> auth) {
+		var player = playerRepo.findById(auth.getName()).orElseGet(() -> playerRepo.save(new Player(auth.getName(), List.of())));
 		var solution = solutionMapper.toDomain(dto);
 		solution.setPlayer(player);
 		if (!problemService.isAcceptable(solution)) {
@@ -71,7 +71,7 @@ public class SolutionsController {
 					in = ParameterIn.PATH,
 					required = true,
 					schema = @Schema(type = "long")) Solution solution,
-			OidcAuthentication<OidcToken> auth) {
+			OAuthentication<OpenidClaimSet> auth) {
 		return solutionMapper.toDto(solution);
 	}
 
@@ -84,7 +84,7 @@ public class SolutionsController {
 					required = true,
 					schema = @Schema(type = "long")) Solution solution,
 			@RequestBody @Valid SolutionUpdateRequest payload,
-			OidcAuthentication<OidcToken> auth) {
+			OAuthentication<OpenidClaimSet> auth) {
 		solution.setX1(payload.x1);
 		solution.setX2(payload.x2);
 		solution.setX3(payload.x3);
@@ -110,7 +110,7 @@ public class SolutionsController {
 					in = ParameterIn.PATH,
 					required = true,
 					schema = @Schema(type = "long")) Solution solution,
-			OidcAuthentication<OidcToken> auth) {
+			OAuthentication<OpenidClaimSet> auth) {
 		solutionRepo.delete(solution);
 
 		return ResponseEntity.accepted().build();

@@ -6,9 +6,6 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -17,14 +14,10 @@ import java.util.Optional;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.Import;
-import org.springframework.http.MediaType;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
-import org.springframework.test.web.servlet.MockMvc;
 
 import com.c4_soft.bao_loc.EnableSpringDataWebSupportTestConf;
 import com.c4_soft.bao_loc.domain.ProblemService;
@@ -34,15 +27,17 @@ import com.c4_soft.bao_loc.domain.jpa.Solution;
 import com.c4_soft.bao_loc.domain.jpa.SolutionRepository;
 import com.c4_soft.bao_loc.web.dtos.SolutionResponse;
 import com.c4_soft.bao_loc.web.dtos.SolutionUpdateRequest;
+import com.c4_soft.springaddons.security.oauth2.test.annotations.OpenId;
 import com.c4_soft.springaddons.security.oauth2.test.annotations.OpenIdClaims;
-import com.c4_soft.springaddons.security.oauth2.test.annotations.WithMockOidcAuth;
+import com.c4_soft.springaddons.security.oauth2.test.mockmvc.AutoConfigureSecurityAddons;
+import com.c4_soft.springaddons.security.oauth2.test.mockmvc.MockMvcSupport;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 /**
  * @author Jérôme Wacongne &lt;ch4mp#64;c4-soft.com&gt;
  */
-@ExtendWith(SpringExtension.class)
 @WebMvcTest
+@AutoConfigureSecurityAddons
 @Import(EnableSpringDataWebSupportTestConf.class)
 class SolutionsControllerTest {
 	Player player;
@@ -76,19 +71,19 @@ class SolutionsControllerTest {
 	SolutionMapper solutionMapper;
 
 	@Autowired
-	MockMvc mockMvc;
+	MockMvcSupport mockMvc;
 
 	@Test
-	@WithMockOidcAuth(claims = @OpenIdClaims(sub = "54321"))
+	@OpenId(claims = @OpenIdClaims(sub = "54321"))
 	void whenGetSolutionsThenFirstPageIsReturned() throws Exception {
 		final var s = player.getSolutions().get(0);
 		when(solutionMapper.toDto(any(Solution.class)))
 				.thenReturn(new SolutionResponse(s.getId(), s.getX1(), s.getX2(), s.getX3(), s.getX4(), s.getX5(), s.getX6(), s.getX7(), s.getX8(), s.getX9()));
-		mockMvc.perform(get("/solutions").secure(true)).andExpect(status().isOk()).andExpect(jsonPath("$", hasSize(player.getSolutions().size())));
+		mockMvc.get("/solutions").andExpect(status().isOk()).andExpect(jsonPath("$", hasSize(player.getSolutions().size())));
 	}
 
 	@Test
-	@WithMockOidcAuth(claims = @OpenIdClaims(sub = "54321"))
+	@OpenId(claims = @OpenIdClaims(sub = "54321"))
 	void whenGetSolutionByExistingIdThenItIsReturned() throws Exception {
 		final var solution = player.getSolutions().get(1);
 		when(solutionRepo.findById(1L)).thenReturn(Optional.of(solution));
@@ -96,7 +91,7 @@ class SolutionsControllerTest {
 			final var s = (Solution) invocation.getArgument(0);
 			return new SolutionResponse(s.getId(), s.getX1(), s.getX2(), s.getX3(), s.getX4(), s.getX5(), s.getX6(), s.getX7(), s.getX8(), s.getX9());
 		});
-		mockMvc.perform(get("/solutions/1").secure(true)).andExpect(status().isOk()).andExpect(jsonPath("$.x1", is(solution.getX1().intValue())))
+		mockMvc.get("/solutions/1").andExpect(status().isOk()).andExpect(jsonPath("$.x1", is(solution.getX1().intValue())))
 				.andExpect(jsonPath("$.x2", is(solution.getX2().intValue()))).andExpect(jsonPath("$.x3", is(solution.getX3().intValue())))
 				.andExpect(jsonPath("$.x4", is(solution.getX4().intValue()))).andExpect(jsonPath("$.x5", is(solution.getX5().intValue())))
 				.andExpect(jsonPath("$.x6", is(solution.getX6().intValue()))).andExpect(jsonPath("$.x7", is(solution.getX7().intValue())))
@@ -104,14 +99,14 @@ class SolutionsControllerTest {
 	}
 
 	@Test
-	@WithMockOidcAuth(claims = @OpenIdClaims(sub = "54321"))
+	@OpenId(claims = @OpenIdClaims(sub = "54321"))
 	void whenGetSolutionByNonExistingIdThenNotFound() throws Exception {
 		when(solutionRepo.findById(anyLong())).thenReturn(Optional.empty());
-		mockMvc.perform(get("/solutions/42").secure(true)).andExpect(status().isNotFound());
+		mockMvc.get("/solutions/42").andExpect(status().isNotFound());
 	}
 
 	@Test
-	@WithMockOidcAuth(claims = @OpenIdClaims(sub = "54321"))
+	@OpenId(claims = @OpenIdClaims(sub = "54321"))
 	void whenPutValidSolutionAtValidIdThenAccepted() throws Exception {
 		final var solution = player.getSolutions().get(1);
 		final var payload = new SolutionUpdateRequest(1L, 2L, 3L, 4L, 5L, 6L, 7L, 8L, 9L);
@@ -119,14 +114,11 @@ class SolutionsControllerTest {
 		when(solutionRepo.findById(solution.getId())).thenReturn(Optional.of(solution));
 		when(problemService.isAcceptable(solution)).thenReturn(true);
 
-		mockMvc.perform(
-				put("/solutions/{solutionId}", solution.getId()).secure(true).characterEncoding("UTF-8").contentType(MediaType.APPLICATION_JSON)
-						.content(json.writeValueAsBytes(payload)))
-				.andExpect(status().isAccepted());
+		mockMvc.put(payload, "/solutions/{solutionId}", solution.getId()).andExpect(status().isAccepted());
 	}
 
 	@Test
-	@WithMockOidcAuth(claims = @OpenIdClaims(sub = "54321"))
+	@OpenId(claims = @OpenIdClaims(sub = "54321"))
 	void whenPutSolutionWithDuplicatedValuesAtValidIdThenBadRequest() throws Exception {
 		final var solution = player.getSolutions().get(1);
 		final var payload = new SolutionUpdateRequest(1L, 2L, 3L, 4L, 5L, 6L, 7L, 8L, 8L);
@@ -134,14 +126,11 @@ class SolutionsControllerTest {
 		when(solutionRepo.findById(solution.getId())).thenReturn(Optional.of(solution));
 		when(problemService.isAcceptable(solution)).thenReturn(false);
 
-		mockMvc.perform(
-				put("/solutions/{solutionId}", solution.getId()).secure(true).characterEncoding("UTF-8").contentType(MediaType.APPLICATION_JSON)
-						.content(json.writeValueAsBytes(payload)))
-				.andExpect(status().isBadRequest());
+		mockMvc.put(payload, "/solutions/{solutionId}", solution.getId()).andExpect(status().isBadRequest());
 	}
 
 	@Test
-	@WithMockOidcAuth(claims = @OpenIdClaims(sub = "54321"))
+	@OpenId(claims = @OpenIdClaims(sub = "54321"))
 	void whenPutSolutionWithOutOfRangeValuesAtValidIdThenBadRequest() throws Exception {
 		final var solution = player.getSolutions().get(1);
 		final var payload = new SolutionUpdateRequest(1L, 2L, 3L, 4L, 5L, 6L, 7L, 8L, 10L);
@@ -149,14 +138,11 @@ class SolutionsControllerTest {
 		when(solutionRepo.findById(solution.getId())).thenReturn(Optional.of(solution));
 		when(problemService.isAcceptable(solution)).thenReturn(false);
 
-		mockMvc.perform(
-				put("/solutions/{solutionId}", solution.getId()).secure(true).characterEncoding("UTF-8").contentType(MediaType.APPLICATION_JSON)
-						.content(json.writeValueAsBytes(payload)))
-				.andExpect(status().isBadRequest());
+		mockMvc.put(payload, "/solutions/{solutionId}", solution.getId()).andExpect(status().isBadRequest());
 	}
 
 	@Test
-	@WithMockOidcAuth(claims = @OpenIdClaims(sub = "54321"))
+	@OpenId(claims = @OpenIdClaims(sub = "54321"))
 	void whenPutInvalidSolutionAtValidIdThenBadRequest() throws Exception {
 		final var solution = player.getSolutions().get(1);
 		final var payload = new SolutionUpdateRequest(1L, 2L, 3L, 4L, 5L, 6L, 7L, 8L, 9L);
@@ -164,42 +150,36 @@ class SolutionsControllerTest {
 		when(solutionRepo.findById(solution.getId())).thenReturn(Optional.of(solution));
 		when(problemService.isAcceptable(solution)).thenReturn(false);
 
-		mockMvc.perform(
-				put("/solutions/{solutionId}", solution.getId()).secure(true).characterEncoding("UTF-8").contentType(MediaType.APPLICATION_JSON)
-						.content(json.writeValueAsBytes(payload)))
-				.andExpect(status().isBadRequest());
+		mockMvc.put(payload, "/solutions/{solutionId}", solution.getId()).andExpect(status().isBadRequest());
 	}
 
 	@Test
-	@WithMockOidcAuth(claims = @OpenIdClaims(sub = "54321"))
+	@OpenId(claims = @OpenIdClaims(sub = "54321"))
 	void whenPutValidSolutionAtInvalidIdThenNotFound() throws Exception {
 		final var payload = new SolutionUpdateRequest(1L, 2L, 3L, 4L, 5L, 6L, 7L, 8L, 9L);
 
 		when(solutionRepo.findById(anyLong())).thenReturn(Optional.empty());
 
-		mockMvc.perform(
-				put("/solutions/{solutionId}", 42L).secure(true).characterEncoding("UTF-8").contentType(MediaType.APPLICATION_JSON)
-						.content(json.writeValueAsBytes(payload)))
-				.andExpect(status().isNotFound());
+		mockMvc.put(payload, "/solutions/{solutionId}", 42L).andExpect(status().isNotFound());
 	}
 
 	@Test
-	@WithMockOidcAuth(claims = @OpenIdClaims(sub = "54321"))
+	@OpenId(claims = @OpenIdClaims(sub = "54321"))
 	void whenDelteSolutionAtValidIdThenItsActuallyDeleted() throws Exception {
 		final var solution = player.getSolutions().get(1);
 
 		when(solutionRepo.findById(solution.getId())).thenReturn(Optional.of(solution));
 
-		mockMvc.perform(delete("/solutions/{solutionId}", solution.getId()).secure(true)).andExpect(status().isAccepted());
+		mockMvc.delete("/solutions/{solutionId}", solution.getId()).andExpect(status().isAccepted());
 
 		verify(solutionRepo).delete(solution);
 	}
 
 	@Test
-	@WithMockOidcAuth(claims = @OpenIdClaims(sub = "54321"))
+	@OpenId(claims = @OpenIdClaims(sub = "54321"))
 	void whenDelteSolutionAtInvalidIdThenNotFound() throws Exception {
 		when(solutionRepo.findById(anyLong())).thenReturn(Optional.empty());
 
-		mockMvc.perform(delete("/solutions/42").secure(true)).andExpect(status().isNotFound());
+		mockMvc.delete("/solutions/42").andExpect(status().isNotFound());
 	}
 }

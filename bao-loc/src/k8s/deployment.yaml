@@ -1,0 +1,58 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: bao-loc-api
+  name: bao-loc-api
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: bao-loc-api
+  strategy: {}
+  template:
+    metadata:
+      labels:
+        app: bao-loc-api
+    spec:
+      containers:
+      - image: bao-loc-api:0.0.1-SNAPSHOT
+        name: api
+        env:
+          - name: SPRING_PROFILES_ACTIVE
+            valueFrom:
+              configMapKeyRef:
+                name: starter-api
+                key: spring.profiles.active
+          - name: SPRING_DATASOURCE_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: starter-api
+                key: spring.datasource.password
+          - name: SERVER_SSL_KEY_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: starter-api
+                key: server.ssl.key.password
+          - name: SERVER_SSL_KEY_STORE_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: starter-api
+                key: server.ssl.key-store.password
+        readinessProbe:
+          httpGet:
+            scheme: HTTPS
+            path: /actuator/health/readiness
+            port: 4202
+        livenessProbe:
+          httpGet:
+            scheme: HTTPS
+            path: /actuator/health/liveness
+            port: 4202
+        lifecycle:
+          preStop:
+            exec:
+              command: ["sh", "-c", "sleep 10"]
+        resources: {}
+
+status: {}
