@@ -64,19 +64,18 @@ public class SolutionsController {
 	}
 
 	@GetMapping("/{solutionId}")
-	@PreAuthorize("hasAuthority('ADMIN') or #solution.player.subject == #auth.token.subject")
+	@PreAuthorize("hasAuthority('ADMIN') or is(#solution.player.subject)")
 	public SolutionResponse retrieveSolution(
 			@PathVariable("solutionId") @Parameter(
 					name = "solutionId",
 					in = ParameterIn.PATH,
 					required = true,
-					schema = @Schema(type = "long")) Solution solution,
-			OAuthentication<OpenidClaimSet> auth) {
+					schema = @Schema(type = "long")) Solution solution) {
 		return solutionMapper.toDto(solution);
 	}
 
 	@PutMapping("/{solutionId}")
-	@PreAuthorize("hasAuthority('ADMIN') or #solution.player.subject == #auth.token.subject")
+	@PreAuthorize("hasAuthority('ADMIN') or is(#solution.player.subject)")
 	public ResponseEntity<?> updateSolution(
 			@PathVariable("solutionId") @Parameter(
 					name = "solutionId",
@@ -103,7 +102,7 @@ public class SolutionsController {
 	}
 
 	@DeleteMapping("/{solutionId}")
-	@PreAuthorize("hasAuthority('ADMIN') or #solution.player.subject == #auth.token.subject")
+	@PreAuthorize("hasAuthority('ADMIN') or is(#solution.player.subject)")
 	public ResponseEntity<?> deleteSolution(
 			@PathVariable("solutionId") @Parameter(
 					name = "solutionId",

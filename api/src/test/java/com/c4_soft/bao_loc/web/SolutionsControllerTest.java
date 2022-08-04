@@ -20,6 +20,7 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.Import;
 
 import com.c4_soft.bao_loc.EnableSpringDataWebSupportTestConf;
+import com.c4_soft.bao_loc.SecuredTest;
 import com.c4_soft.bao_loc.domain.ProblemService;
 import com.c4_soft.bao_loc.domain.jpa.Player;
 import com.c4_soft.bao_loc.domain.jpa.PlayerRepository;
@@ -29,7 +30,6 @@ import com.c4_soft.bao_loc.web.dtos.SolutionResponse;
 import com.c4_soft.bao_loc.web.dtos.SolutionUpdateRequest;
 import com.c4_soft.springaddons.security.oauth2.test.annotations.OpenId;
 import com.c4_soft.springaddons.security.oauth2.test.annotations.OpenIdClaims;
-import com.c4_soft.springaddons.security.oauth2.test.mockmvc.AutoConfigureSecurityAddons;
 import com.c4_soft.springaddons.security.oauth2.test.mockmvc.MockMvcSupport;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -37,7 +37,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
  * @author Jérôme Wacongne &lt;ch4mp#64;c4-soft.com&gt;
  */
 @WebMvcTest
-@AutoConfigureSecurityAddons
+@SecuredTest
 @Import(EnableSpringDataWebSupportTestConf.class)
 class SolutionsControllerTest {
 	Player player;
