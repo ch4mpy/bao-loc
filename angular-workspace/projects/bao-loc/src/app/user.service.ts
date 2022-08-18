@@ -1,92 +1,91 @@
-import { ChangeDetectorRef, Injectable } from '@angular/core';
-import { LoadingController } from '@ionic/angular';
-import { OAuthService } from 'angular-oauth2-oidc';
+import { Injectable } from '@angular/core';
+import {
+  OidcSecurityService,
+  OpenIdConfiguration,
+} from 'angular-auth-oidc-client';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { environment } from '../environments/environment';
+
+export class User {
+  static readonly ANONYMOUS = new User('', '', '', '', '', []);
+
+  constructor(
+    readonly subject: string,
+    readonly username: string,
+    readonly displayName: string,
+    readonly email: string,
+    readonly picture: string,
+    readonly roles: Array<string>
+  ) {}
+
+  get isAuthenticated(): boolean {
+    return !!this.username;
+  }
+
+  static of(userData?: any): User {
+    const realmRoles: string[] = userData?.realm_access?.roles || [];
+    if (
+      environment.authConfig.config?.constructor?.name ===
+      'OpenIdConfiguration[]'
+    ) {
+      throw 'Update User class to pick clientId from the right configuration';
+    }
+    var clientId = (environment.authConfig.config as OpenIdConfiguration)
+      ?.clientId;
+    const clientRoles: string[] =
+      userData?.resource_access && clientId
+        ? userData.resource_access[clientId]?.roles || []
+        : [];
+    return userData?.preferred_username
+      ? new User(
+          userData.sub,
+          userData.preferred_username,
+          userData.name || userData.preferred_username,
+          userData.email,
+          userData.picture,
+          realmRoles
+            .concat(clientRoles)
+            .map((r) => r?.trim()?.toUpperCase())
+            .filter((r) => !!r?.length)
+        )
+      : User.ANONYMOUS;
+  }
+}
 
 @Injectable({
   providedIn: 'root',
 })
 export class UserService {
-  name!: string;
-  picture!: string;
-  sub!: string;
+  private readonly _currentUser$ = new BehaviorSubject<User>(User.ANONYMOUS);
 
-  private loading: Promise<HTMLIonLoadingElement>;
-
-  constructor(
-    private oauthService: OAuthService,
-    loadingCtrl: LoadingController
-  ) {
-    this.loading = loadingCtrl.create({ duration: 10000 });
+  constructor(private oidcService: OidcSecurityService) {
     this.refreshUserData(undefined);
-    this.oauthService.configure(environment.authConfig);
-    this.refresh();
+
   }
 
-  get isAuthenticated(): boolean {
-    return !!this.sub;
-  }
-
-  async refresh() {
-    if (!this.oauthService.discoveryDocumentLoaded) {
-      this.loading.then((l) => l.present());
-      await this.oauthService.loadDiscoveryDocument();
-      this.loading.then((l) => l.dismiss());
+  async refreshUserData(idClaims: any) {
+    console.log('refreshUserData: ', idClaims);
+    if (!idClaims) {
+      this._currentUser$.next(User.ANONYMOUS);
+      return;
     }
-    if (
-      !!this.oauthService.getIdentityClaims() &&
-      this.oauthService.hasValidAccessToken()
-    ) {
-      this.refreshUserData(this.oauthService.getIdentityClaims());
-    } else {
-      this.loading.then((l) => l.present());
-      await this.oauthService
-        .tryLogin()
-        .then(async (loginResp) => {
-          console.log('loginResp: ', loginResp);
-          if (!this.oauthService.hasValidAccessToken()) {
-            await this.oauthService.silentRefresh();
-          }
-        })
-        .then(() => {
-          this.refreshUserData(this.oauthService.getIdentityClaims());
-        })
-        .finally(() => this.loading.then((l) => l.dismiss()));
-    }
+    this._currentUser$.next(User.of(idClaims));
   }
 
   login() {
-    this.loading.then((l) => l.present());
-    this.oauthService.initLoginFlow();
-    this.oauthService
-      .tryLogin()
-      .then(
-        (isSuccess) => {
-          console.log('Login isSuccess: ', isSuccess);
-          if (isSuccess) {
-            this.refreshUserData(this.oauthService.getIdentityClaims());
-          } else {
-            this.refreshUserData(undefined);
-          }
-        },
-        (error) => console.log('Login error: ', error)
-      )
-      .finally(() => this.loading.then((l) => l.dismiss()));
+    this.oidcService.authorize();
   }
 
   logout() {
-    this.oauthService.revokeTokenAndLogout();
+    this.oidcService.logoff();
     this.refreshUserData(undefined);
   }
 
-  private refreshUserData(idClaims: any) {
-    console.log('refreshUserData: ', idClaims);
-    this.name = idClaims?.name || '';
-    this.sub = idClaims?.sub || '';
-    this.picture = idClaims?.picture || '';
+  get valueChanges(): Observable<User> {
+    return this._currentUser$;
   }
 
-  get idClaims() {
-    return this.oauthService.getIdentityClaims();
+  get current(): User {
+    return this._currentUser$.getValue();
   }
 }

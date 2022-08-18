@@ -5,15 +5,15 @@ import { Solution } from "./solution";
 
 export class BaoLocForm {
   readonly group: FormGroup;
-  readonly x1 = new FormControl('', [Validators.required, this.inputValidator()]);
-  readonly x2 = new FormControl('', [Validators.required, this.inputValidator()]);
-  readonly x3 = new FormControl('', [Validators.required, this.inputValidator()]);
-  readonly x4 = new FormControl('', [Validators.required, this.inputValidator()]);
-  readonly x5 = new FormControl('', [Validators.required, this.inputValidator()]);
-  readonly x6 = new FormControl('', [Validators.required, this.inputValidator()]);
-  readonly x7 = new FormControl('', [Validators.required, this.inputValidator()]);
-  readonly x8 = new FormControl('', [Validators.required, this.inputValidator()]);
-  readonly x9 = new FormControl('', [Validators.required, this.inputValidator()]);
+  readonly x1 = new FormControl<number | null>(null, [Validators.required, this.inputValidator()]);
+  readonly x2 = new FormControl<number | null>(null, [Validators.required, this.inputValidator()]);
+  readonly x3 = new FormControl<number | null>(null, [Validators.required, this.inputValidator()]);
+  readonly x4 = new FormControl<number | null>(null, [Validators.required, this.inputValidator()]);
+  readonly x5 = new FormControl<number | null>(null, [Validators.required, this.inputValidator()]);
+  readonly x6 = new FormControl<number | null>(null, [Validators.required, this.inputValidator()]);
+  readonly x7 = new FormControl<number | null>(null, [Validators.required, this.inputValidator()]);
+  readonly x8 = new FormControl<number | null>(null, [Validators.required, this.inputValidator()]);
+  readonly x9 = new FormControl<number | null>(null, [Validators.required, this.inputValidator()]);
 
   constructor(private cdr: ChangeDetectorRef) {
     this.group = new FormGroup(
@@ -33,29 +33,29 @@ export class BaoLocForm {
   }
 
   updateSolution(s: SolutionUpdateRequest) {
-    this.x1.patchValue(s.x1);
-    this.x2.patchValue(s.x2);
-    this.x3.patchValue(s.x3);
-    this.x4.patchValue(s.x4);
-    this.x5.patchValue(s.x5);
-    this.x6.patchValue(s.x6);
-    this.x7.patchValue(s.x7);
-    this.x8.patchValue(s.x8);
-    this.x9.patchValue(s.x9);
+    this.x1.patchValue(s.x1 || null);
+    this.x2.patchValue(s.x2 || null);
+    this.x3.patchValue(s.x3 || null);
+    this.x4.patchValue(s.x4 || null);
+    this.x5.patchValue(s.x5 || null);
+    this.x6.patchValue(s.x6 || null);
+    this.x7.patchValue(s.x7 || null);
+    this.x8.patchValue(s.x8 || null);
+    this.x9.patchValue(s.x9 || null);
     this.cdr.detectChanges()
   }
 
   get solution(): Solution {
     return new Solution(
-      this.x1.value,
-      this.x2.value,
-      this.x3.value,
-      this.x4.value,
-      this.x5.value,
-      this.x6.value,
-      this.x7.value,
-      this.x8.value,
-      this.x9.value
+      this.x1.value || 0,
+      this.x2.value || 0,
+      this.x3.value || 0,
+      this.x4.value || 0,
+      this.x5.value || 0,
+      this.x6.value || 0,
+      this.x7.value || 0,
+      this.x8.value || 0,
+      this.x9.value || 0,
     )
   }
 

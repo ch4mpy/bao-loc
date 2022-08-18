@@ -21,10 +21,10 @@ export class IsAuthenticatedGuard implements CanActivate {
     | UrlTree
     | Observable<boolean | UrlTree>
     | Promise<boolean | UrlTree> {
-      if(!this.userService.isAuthenticated) {
+      if(!this.userService.current.isAuthenticated) {
         console.warn('Unauthenticated gard')
         this.router.navigateByUrl('/info')
       }
-    return this.userService.isAuthenticated;
+    return this.userService.current.isAuthenticated;
   }
 }

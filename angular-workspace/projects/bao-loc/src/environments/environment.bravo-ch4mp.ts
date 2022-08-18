@@ -1,6 +1,6 @@
 import { LogLevel, PassedInitialConfig } from 'angular-auth-oidc-client'
 
-const solutionsBasePath = 'https://api.bao-loc.c4-soft.com'
+const solutionsBasePath = 'https://bravo-ch4mp:8080'
 
 const secureRoutes = [
   `${solutionsBasePath}/solutions`,
@@ -8,12 +8,12 @@ const secureRoutes = [
 
 export const authConfig: PassedInitialConfig  = {
   config: {
-    authority: 'https://dev-ch4mpy.eu.auth0.com/',
+    authority: 'https://bravo-ch4mp:8443/realms/master',
     secureRoutes,
     redirectUrl: window.location.origin,
     postLogoutRedirectUri: window.location.origin,
-    clientId: 'lRHwmwQr3bhkKZeezYD8UAaGna3KSnBB',
-    scope: 'openid profile email offline_access solutions:manage',
+    clientId: 'bao-loc-public',
+    scope: 'openid profile email offline_access',
     responseType: 'code',
     silentRenew: true,
     useRefreshToken: true,

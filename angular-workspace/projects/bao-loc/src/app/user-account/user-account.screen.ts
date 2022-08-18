@@ -9,17 +9,17 @@ import { UserService } from '../user.service';
         <ion-buttons slot="start">
           <ion-menu-button></ion-menu-button>
         </ion-buttons>
-        <ion-title>{{ userService.name || 'Compte' }}</ion-title>
+        <ion-title>{{ userService.current.displayName || 'Compte' }}</ion-title>
       </ion-toolbar>
     </ion-header>
 
     <ion-content>
-      <div *ngIf="!userService.name">
+      <div *ngIf="!userService.current.displayName">
         <ion-button (click)="login()">Login</ion-button>
       </div>
-      <div *ngIf="!!userService.name">
+      <div *ngIf="!!userService.current.displayName">
         <ion-avatar>
-          <img [src]="userService.picture" />
+          <img [src]="userService.current.picture" />
         </ion-avatar>
         <ion-button (click)="logout()">Logout</ion-button>
       </div>
@@ -37,9 +37,5 @@ export class UserAccountScreen implements OnInit {
 
   logout() {
     this.userService.logout();
-  }
-
-  get redirectUti(): string {
-    return environment.authConfig.redirectUri || ''
   }
 }

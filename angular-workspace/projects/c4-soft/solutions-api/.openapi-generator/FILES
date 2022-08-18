@@ -1,7 +1,7 @@
 api.module.ts
 api/api.ts
-api/solutionsController.service.ts
-api/solutionsController.serviceInterface.ts
+api/solutions.service.ts
+api/solutions.serviceInterface.ts
 configuration.ts
 encoder.ts
 index.ts

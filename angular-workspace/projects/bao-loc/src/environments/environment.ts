@@ -1,34 +1,36 @@
 // This file can be replaced during build by using the `fileReplacements` array.
 // `ng build` replaces `environment.ts` with `environment.prod.ts`.
 
-import { AuthConfig, OAuthModuleConfig } from 'angular-oauth2-oidc';
+import { LogLevel, PassedInitialConfig } from 'angular-auth-oidc-client'
 
-export const authConfig: AuthConfig = {
-  issuer: 'https://dev-ch4mpy.eu.auth0.com/',
-  redirectUri: window.location.origin,
-  postLogoutRedirectUri: window.location.origin,
-  clientId: 'lRHwmwQr3bhkKZeezYD8UAaGna3KSnBB',
-  responseType: 'code',
-  //solutions:manage is a scope specific to specified audience (resource server at https://bravo-ch4mp:8080)
-  scope: 'openid profile email offline_access solutions:manage',
-  customQueryParams: {
-    //this is where OpenAPI REST resource-server is located
-    audience: 'https://bravo-ch4mp:8080',
-  },
-  showDebugInformation: true,
-};
+const solutionsBasePath = 'https://localhost:8080'
 
-export const oAuthModuleConfig: OAuthModuleConfig = {
-  resourceServer: {
-    allowedUrls: ['https://bravo-ch4mp:8080/'],
-    sendAccessToken: true,
+const secureRoutes = [
+  `${solutionsBasePath}/solutions`,
+]
+
+export const authConfig: PassedInitialConfig  = {
+  config: {
+    authority: 'https://dev-ch4mpy.eu.auth0.com/',
+    secureRoutes,
+    redirectUrl: window.location.origin,
+    postLogoutRedirectUri: window.location.origin,
+    clientId: 'lRHwmwQr3bhkKZeezYD8UAaGna3KSnBB',
+    scope: 'openid profile email offline_access solutions:manage',
+    responseType: 'code',
+    silentRenew: true,
+    useRefreshToken: true,
+    logLevel: LogLevel.Debug,
+    customParamsAuthRequest: {
+      //this is where OpenAPI REST resource-server is located
+      audience: solutionsBasePath,
+    },
   },
 };
 
 export const environment = {
   production: false,
   authConfig,
-  oAuthModuleConfig,
 };
 
 /*

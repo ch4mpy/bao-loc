@@ -1,5 +1,5 @@
 import { ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { SolutionResponse, SolutionsControllerApi } from '@c4-soft/solutions-api';
+import { SolutionResponse, SolutionsApi } from '@c4-soft/solutions-api';
 import { BaoLocForm } from './bao-loc-form';
 import { Solution } from './solution';
 
@@ -121,7 +121,7 @@ export class SolutionsEditComponent implements OnInit {
 
   isExpectedResult?: boolean
 
-  constructor(private solutionsApi: SolutionsControllerApi, cdr: ChangeDetectorRef) {
+  constructor(private solutionsApi: SolutionsApi, cdr: ChangeDetectorRef) {
     this.form = new BaoLocForm(cdr)
   }
 
@@ -141,15 +141,15 @@ export class SolutionsEditComponent implements OnInit {
     )
     this.isExpectedResult = 66 === this.form.solution?.value
     this.form.group.valueChanges.subscribe(() => {
-      this.solution.x1 = this.form.x1.value
-      this.solution.x2 = this.form.x2.value
-      this.solution.x3 = this.form.x3.value
-      this.solution.x4 = this.form.x4.value
-      this.solution.x5 = this.form.x5.value
-      this.solution.x6 = this.form.x6.value
-      this.solution.x7 = this.form.x7.value
-      this.solution.x8 = this.form.x8.value
-      this.solution.x9 = this.form.x9.value
+      this.solution.x1 = this.form.x1.value || 0
+      this.solution.x2 = this.form.x2.value || 0
+      this.solution.x3 = this.form.x3.value || 0
+      this.solution.x4 = this.form.x4.value || 0
+      this.solution.x5 = this.form.x5.value || 0
+      this.solution.x6 = this.form.x6.value || 0
+      this.solution.x7 = this.form.x7.value || 0
+      this.solution.x8 = this.form.x8.value || 0
+      this.solution.x9 = this.form.x9.value || 0
       if (this.form.group.valid) {
         this.isExpectedResult = 66 === this.form.solution?.value
       } else {

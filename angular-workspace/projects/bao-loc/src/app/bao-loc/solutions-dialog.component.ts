@@ -1,7 +1,15 @@
-import { ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { SolutionsControllerApi } from '@c4-soft/solutions-api';
+import {
+  ChangeDetectorRef,
+  Component,
+  EventEmitter,
+  Input,
+  OnInit,
+  Output,
+} from '@angular/core';
+import { SolutionsApi } from '@c4-soft/solutions-api';
 import { LoadingController, ModalController } from '@ionic/angular';
 import { SolutionResponse } from 'projects/c4-soft/solutions-api';
+import { lastValueFrom } from 'rxjs';
 import { finalize } from 'rxjs/operators';
 
 @Component({
@@ -29,24 +37,20 @@ export class SolutionsDialogComponent implements OnInit {
   onSelected = new EventEmitter<SolutionResponse>();
 
   constructor(
-    private solutionsApi: SolutionsControllerApi,
+    private solutionsApi: SolutionsApi,
     private modalController: ModalController,
     private loadingController: LoadingController,
-    private cdr: ChangeDetectorRef,
+    private cdr: ChangeDetectorRef
   ) {}
 
   async ngOnInit() {
-    const loading = await this.loadingController.create()
-    await loading.present()
-    this.solutionsApi
-      .retrievePlayerSolutions()
-      .pipe(finalize(() => loading.dismiss()))
-      .subscribe(
-        (solutions) => {
-          this.solutions = solutions.sort((a, b) => b.id - a.id) || []
-          this.cdr.detectChanges()
-        }
-      );
+    const loading = await this.loadingController.create();
+    await loading.present();
+    const solutions = await lastValueFrom(
+      this.solutionsApi.retrievePlayerSolutions()
+    ).finally(() => loading.dismiss());
+    this.solutions = solutions.sort((a, b) => b.id - a.id) || [];
+    this.cdr.detectChanges();
   }
 
   select(s: SolutionResponse) {

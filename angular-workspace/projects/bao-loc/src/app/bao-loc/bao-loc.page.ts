@@ -1,5 +1,5 @@
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
-import { SolutionResponse, SolutionsControllerApi } from '@c4-soft/solutions-api';
+import { SolutionResponse, SolutionsApi } from '@c4-soft/solutions-api';
 import { LoadingController } from '@ionic/angular';
 import { Subscription } from 'rxjs/internal/Subscription';
 import { BaoLocForm } from './bao-loc-form';
@@ -15,21 +15,21 @@ import { BaoLocForm } from './bao-loc-form';
       </ion-toolbar>
     </ion-header>
     <ion-content>
-      <ion-modal trigger="rules-trigger">
+      <ion-modal trigger="rules-trigger" style="height: auto;">
         <ng-template>
-          <app-rules-dialog></app-rules-dialog>
+          <app-rules-dialog style="min-height: 20em;"></app-rules-dialog>
         </ng-template>
       </ion-modal>
-      <ion-modal trigger="cheat-trigger" dismissOnSelect="true">
+      <ion-modal trigger="cheat-trigger" dismissOnSelect="true" style="height: auto;">
         <ng-template>
-          <app-cheat-dialog
+          <app-cheat-dialog style="min-height: 20em;"
             (onSolutionSelected)="form.updateSolution($event)"
           ></app-cheat-dialog>
         </ng-template>
       </ion-modal>
-      <ion-modal trigger="solutions-trigger">
+      <ion-modal trigger="solutions-trigger" style="height: auto;">
         <ng-template>
-          <app-solutions-dialog
+          <app-solutions-dialog style="min-height: 20em;"
             (onSelected)="loadSolution($event)"
           ></app-solutions-dialog>
         </ng-template>
@@ -260,7 +260,7 @@ export class BaoLocPage implements OnInit {
   private formResult?: number;
 
   constructor(
-    private solutionsApi: SolutionsControllerApi,
+    private solutionsApi: SolutionsApi,
     public loadingController: LoadingController,
     cdr: ChangeDetectorRef,
   ) {

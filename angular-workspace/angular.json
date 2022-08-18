@@ -10,7 +10,9 @@
       "projectType": "application",
       "cli": {
         "analytics": false,
-        "defaultCollection": "@ionic/angular-toolkit"
+        "schematicCollections": [
+          "@ionic/angular-toolkit"
+        ]
       },
       "schematics": {
         "@ionic/angular-toolkit:page": {
@@ -54,8 +56,8 @@
               "budgets": [
                 {
                   "type": "initial",
-                  "maximumWarning": "500kb",
-                  "maximumError": "1mb"
+                  "maximumWarning": "1.5mb",
+                  "maximumError": "3mb"
                 },
                 {
                   "type": "anyComponentStyle",
@@ -78,6 +80,20 @@
               "extractLicenses": false,
               "sourceMap": true,
               "namedChunks": true
+            },
+            "bravo-ch4mp": {
+              "buildOptimizer": false,
+              "optimization": false,
+              "vendorChunk": true,
+              "extractLicenses": false,
+              "sourceMap": true,
+              "namedChunks": true,
+              "fileReplacements": [
+                {
+                  "replace": "projects/bao-loc/src/environments/environment.ts",
+                  "with": "projects/bao-loc/src/environments/environment.bravo-ch4mp.ts"
+                }
+              ]
             }
           },
           "defaultConfiguration": "production"
@@ -86,7 +102,7 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "bravo-ch4mp": {
-              "browserTarget": "bao-loc:build:development",
+              "browserTarget": "bao-loc:build:bravo-ch4mp",
               "host": "bravo-ch4mp",
               "ssl": true,
               "sslCert": "C:/Users/ch4mp/.ssh/bravo-ch4mp_self_signed.crt",
@@ -160,6 +176,5 @@
         }
       }
     }
-  },
-  "defaultProject": "bao-loc"
+  }
 }

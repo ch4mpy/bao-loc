@@ -1,6 +1,13 @@
-import { AfterViewInit, ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
+import {
+  AfterViewInit,
+  ChangeDetectorRef,
+  Component,
+  OnDestroy,
+  OnInit,
+} from '@angular/core';
 import { Deeplinks } from '@awesome-cordova-plugins/deeplinks/ngx';
 import { MenuController, NavController, Platform } from '@ionic/angular';
+import { OidcSecurityService } from 'angular-auth-oidc-client';
 import { Subscription } from 'rxjs/internal/Subscription';
 import { BaoLocPage } from './bao-loc/bao-loc.page';
 import { InfoPage } from './info/info.page';
@@ -36,7 +43,7 @@ import { UserService } from './user.service';
                   routerLink="/bao-loc"
                   lines="none"
                   detail="false"
-                  [disabled]="!userService.isAuthenticated"
+                  [disabled]="!userService.current.isAuthenticated"
                 >
                   <ion-icon slot="start" name="game-controller"></ion-icon>
                   <ion-label>Bao-Loc</ion-label>
@@ -46,15 +53,15 @@ import { UserService } from './user.service';
                   routerLink="/account"
                   lines="none"
                   detail="false"
-                  *ngIf="userService.isAuthenticated"
+                  *ngIf="userService.current.isAuthenticated"
                 >
                   <ion-icon slot="start" name="person-circle"></ion-icon>
-                  <ion-label>{{ userService.name }}</ion-label>
+                  <ion-label>{{ userService.current.displayName }}</ion-label>
                 </ion-item>
                 <ion-item
                   lines="none"
                   detail="false"
-                  *ngIf="!userService.isAuthenticated"
+                  *ngIf="!userService.current.isAuthenticated"
                   (click)="userService.login()"
                 >
                   <ion-icon slot="start" name="person-circle"></ion-icon>
@@ -83,9 +90,11 @@ export class AppComponent implements OnInit, AfterViewInit, OnDestroy {
   title = 'bao-loc';
 
   private deeplinksRouteSubscription?: Subscription;
+  private userSubscription?: Subscription;
 
   constructor(
     private menuController: MenuController,
+    private oidcService: OidcSecurityService,
     public userService: UserService,
     private platform: Platform,
     private deeplinks: Deeplinks,
@@ -95,6 +104,15 @@ export class AppComponent implements OnInit, AfterViewInit, OnDestroy {
 
   ngOnInit(): void {
     console.log('PLATFORMS: ' + this.platform.platforms());
+    this.oidcService.checkAuth().subscribe(
+      async ({ isAuthenticated, userData, accessToken, idToken }) => {
+        console.log(userData);
+        await this.userService.refreshUserData(userData);
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
     if (this.platform.is('capacitor')) {
       this.setupDeeplinks();
     }
@@ -115,18 +133,17 @@ export class AppComponent implements OnInit, AfterViewInit, OnDestroy {
       .routeWithNavController(this.navController, {})
       .subscribe({
         next: async (match) => {
-          console.log('Deeplink matched: ', match)
+          console.log('Deeplink matched: ', match);
           await this.navController.navigateForward(
             match.$link.path + '?' + match.$link.queryString
           );
-          await this.userService.refresh()
-          this.cdr.detectChanges()
+          this.userSubscription?.unsubscribe();
+          this.userSubscription = this.userService.valueChanges.subscribe(() =>
+            this.cdr.detectChanges()
+          );
         },
         error: (nomatch) =>
-          console.error(
-            "Deeplink didn't match",
-            JSON.stringify(nomatch)
-          ),
+          console.error("Deeplink didn't match", JSON.stringify(nomatch)),
       });
   }
 }

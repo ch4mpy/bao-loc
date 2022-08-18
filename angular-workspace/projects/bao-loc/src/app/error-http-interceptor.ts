@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core'
 import { MatDialog } from '@angular/material/dialog'
 import { Observable, throwError } from 'rxjs'
 import { catchError } from 'rxjs/operators'
-import { NetworkErrorDialogComponent, NetworkErrorDialogData } from './network-error-dialog.component'
+import { NetworkErrorDialogComponent, NetworkErrorDialogData } from './network-error.dialog'
 
 @Injectable({ providedIn: 'root' })
 export class ErrorHttpInterceptor implements HttpInterceptor {
