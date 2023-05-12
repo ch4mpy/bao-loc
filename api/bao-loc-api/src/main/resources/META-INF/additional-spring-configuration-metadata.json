@@ -1,0 +1,32 @@
+{"properties": [
+  {
+    "name": "scheme",
+    "type": "java.lang.String",
+    "description": "'http' or 'https', can be used to build allowed origins"
+  },
+  {
+    "name": "origins",
+    "type": "java.lang.String",
+    "description": "Allowed origins"
+  },
+  {
+    "name": "oauth2-issuer",
+    "type": "java.lang.String",
+    "description": "Authorization server 'issuer' URI"
+  },
+  {
+    "name": "db-url",
+    "type": "java.lang.String",
+    "description": "Database JDBC URL"
+  },
+  {
+    "name": "db-username",
+    "type": "java.lang.String",
+    "description": "Database username"
+  },
+  {
+    "name": "db-password",
+    "type": "java.lang.String",
+    "description": "Database password"
+  }
+]}

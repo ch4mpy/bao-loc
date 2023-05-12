@@ -1,0 +1,85 @@
+scheme: http
+origins:  ${scheme}://localhost,${scheme}://localhost:4200,${scheme}://localhost:8080,${scheme}://localhost:8100,${scheme}://bravo-ch4mp:4200,${scheme}://bravo-ch4mp:8080,${scheme}://bravo-ch4mp:8100,${scheme}://mc-ch4mp.local:4200,${scheme}://mc-ch4mp.local:8080,${scheme}://mc-ch4mp.local:8100
+oauth2-issuer: https://oidc.c4-soft.com/auth/realms/spring-addons
+db-url: jdbc:postgresql://localhost:5432/baoloc
+db-username: baoloc
+db-password: change-me
+
+com:
+  c4-soft:
+    springaddons:
+      security:
+        cors:
+        - path: /solutions/**
+          allowed-origins: ${origins}
+        issuers:
+        - location: ${oauth2-issuer}
+          username-claim: $.preferred_username
+          authorities:
+          - path: $.realm_access.roles
+        permit-all:
+        - /actuator/health/readiness
+        - /actuator/health/liveness
+        - /v3/api-docs/**
+
+logging:
+  level:
+    org:
+      springframework:
+        security:
+          web:
+            csrf: TRACE
+
+management:
+  endpoint:
+    health:
+      probes:
+        enabled: true
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+  health:
+    livenessstate:
+      enabled: true
+    readinessstate:
+      enabled: true
+
+server:
+  error:
+    include-message: always
+  port: 8080
+  shutdown: graceful
+  ssl:
+    enabled: false
+
+spring:
+  config:
+    import:
+    - optional:configtree:/workspace/config/
+    - optional:configtree:/workspace/secret/
+  datasource:
+    url: ${db-url}
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        connection:
+          url: ${db-url}
+          username: ${db-username}
+          password: ${db-password}
+  lifecycle:
+    timeout-per-shutdown-phase: 30s
+
+---
+scheme: https
+
+server:
+  ssl:
+    enabled: true
+
+spring:
+  config:
+    activate:
+      on-profile: ssl

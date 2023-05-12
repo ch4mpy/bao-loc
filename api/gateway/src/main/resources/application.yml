@@ -1,0 +1,159 @@
+scheme: http
+oauth2-issuer: https://oidc.c4-soft.com/auth/realms/spring-addons
+oauth2-client-id: spring-addons-bff
+oauth2-client-secret: change-me
+
+gateway-uri: ${scheme}://localhost:${server.port}
+bao-loc-api-uri: ${scheme}://localhost:6443
+ui-bff-uri: ${scheme}://localhost:4200
+ui-public-client-uri: ${scheme}://localhost:4200
+
+server:
+  port: 8080
+  shutdown: graceful
+  ssl:
+    enabled: false
+
+spring:
+  config:
+    import:
+    - optional:configtree:/workspace/config/
+    - optional:configtree:/workspace/secret/
+  lifecycle:
+    timeout-per-shutdown-phase: 30s
+  security:
+    oauth2:
+      client:
+        provider:
+          oauth2:
+            issuer-uri: ${oauth2-issuer}
+        registration:
+          confidential-user:
+            authorization-grant-type: authorization_code
+            client-id: ${oauth2-client-id}
+            client-secret: ${oauth2-client-secret}
+            provider: oauth2
+            scope: openid,profile,email,offline_access
+  cloud:
+    gateway:
+      default-filters:
+      - DedupeResponseHeader=Access-Control-Allow-Credentials Access-Control-Allow-Origin
+      routes:
+      - id: home
+        uri: ${gateway-uri}
+        predicates:
+        - Path=/
+        filters:
+        - RedirectTo=301,${gateway-uri}/ui/bff/
+      - id: home-ui
+        uri: ${gateway-uri}
+        predicates:
+        - Path=/ui/
+        filters:
+        - RedirectTo=301,${gateway-uri}/ui/bff/
+      - id: bao-loc-api-bff
+        uri: ${bao-loc-api-uri}
+        predicates:
+        - Path=/bff/bao-loc/v1/**
+        filters:
+        - TokenRelay=
+        - SaveSession
+        - StripPrefix=2
+      - id: bao-loc-api-direct
+        uri: ${bao-loc-api-uri}
+        predicates:
+        - Path=/api/bao-loc/v1/**
+        filters:
+        - StripPrefix=2
+      - id: ui-bff
+        uri: ${ui-bff-uri}
+        predicates:
+        - Path=/ui/bff/**
+      - id: ui-public-client
+        uri: ${ui-public-client-uri}
+        predicates:
+        - Path=/ui/public-client/**
+      - id: letsencrypt
+        uri: https://cert-manager-webhook
+        predicates:
+        - Path=/.well-known/acme-challenge/**
+
+com:
+  c4-soft:
+    springaddons:
+      security:
+        # Global OAuth2 configuration
+        issuers:
+        - location: ${oauth2-issuer}
+          username-claim: $['https://c4-soft.com/spring-addons']['name']
+          authorities:
+          - path: roles
+          - path: permissions
+        # OAuth2 client configuration
+        client:
+          client-uri: ${gateway-uri}
+          security-matchers:
+          - /login/**
+          - /oauth2/**
+          - /
+          - /me
+          - /logout
+          - /bff/**
+          permit-all:
+          - /login/**
+          - /oauth2/**
+          - /
+          - /me
+          csrf: cookie-accessible-from-js
+          login-path: /ui/bff/
+          post-login-redirect-path: /ui/bff/
+          post-logout-redirect-path: /ui/bff/
+          back-channel-logout-enabled: true
+        # OAuth2 resource server configuration
+        csrf: disable
+        statless-sessions: true
+        permit-all:
+        - /api/**
+        - /ui/**
+        - /v3/api-docs/**
+        - /actuator/health/readiness
+        - /actuator/health/liveness
+        - /.well-known/acme-challenge/**
+            
+management:
+  endpoint:
+    health:
+      probes:
+        enabled: true
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+  health:
+    livenessstate:
+      enabled: true
+    readinessstate:
+      enabled: true
+
+logging:
+  level:
+    root: INFO
+    org:
+      springframework:
+        security: TRACE
+    
+---
+spring:
+  config:
+    activate:
+      on-profile: ssl
+  cloud:
+    gateway:
+      default-filters:
+      - DedupeResponseHeader=Access-Control-Allow-Credentials Access-Control-Allow-Origin
+      - SecureHeaders
+server:
+  ssl:
+    enabled: true
+
+scheme: https

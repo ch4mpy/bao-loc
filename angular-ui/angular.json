@@ -1,0 +1,421 @@
+{
+  "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
+  "version": 1,
+  "newProjectRoot": "projects",
+  "projects": {
+    "bao-loc-public-client": {
+      "projectType": "application",
+      "schematics": {
+        "@schematics/angular:component": {
+          "inlineTemplate": true,
+          "inlineStyle": true,
+          "style": "scss",
+          "skipTests": true
+        },
+        "@schematics/angular:class": {
+          "skipTests": true
+        },
+        "@schematics/angular:directive": {
+          "skipTests": true
+        },
+        "@schematics/angular:guard": {
+          "skipTests": true
+        },
+        "@schematics/angular:interceptor": {
+          "skipTests": true
+        },
+        "@schematics/angular:pipe": {
+          "skipTests": true
+        },
+        "@schematics/angular:resolver": {
+          "skipTests": true
+        },
+        "@schematics/angular:service": {
+          "skipTests": true
+        }
+      },
+      "root": "projects/bao-loc-public-client",
+      "sourceRoot": "projects/bao-loc-public-client/src",
+      "prefix": "app",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "baseHref": "/ui/public-client/",
+            "outputPath": "dist/bao-loc-public-client",
+            "index": "projects/bao-loc-public-client/src/index.html",
+            "main": "projects/bao-loc-public-client/src/main.ts",
+            "polyfills": [
+              "zone.js"
+            ],
+            "tsConfig": "projects/bao-loc-public-client/tsconfig.app.json",
+            "inlineStyleLanguage": "scss",
+            "assets": [
+              "projects/bao-loc-public-client/src/favicon.ico",
+              "projects/bao-loc-public-client/src/assets"
+            ],
+            "styles": [
+              "@angular/material/prebuilt-themes/indigo-pink.css",
+              "projects/bao-loc-public-client/src/styles.scss"
+            ],
+            "scripts": [],
+            "webWorkerTsConfig": "projects/bao-loc-public-client/tsconfig.worker.json"
+          },
+          "configurations": {
+            "production": {
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "500kb",
+                  "maximumError": "1mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "2kb",
+                  "maximumError": "4kb"
+                }
+              ],
+              "outputHashing": "all"
+            },
+            "development": {
+              "buildOptimizer": false,
+              "optimization": false,
+              "vendorChunk": true,
+              "extractLicenses": false,
+              "sourceMap": true,
+              "namedChunks": true
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "configurations": {
+            "production": {
+              "browserTarget": "bao-loc-public-client:build:production"
+            },
+            "development": {
+              "browserTarget": "bao-loc-public-client:build:development",
+              "host": "0.0.0.0"
+            },
+            "bravo-ch4mp": {
+              "browserTarget": "bao-loc-public-client:build:development",
+              "host": "0.0.0.0",
+              "ssl": true,
+              "sslCert": "C:/Users/ch4mp/.ssh/bravo-ch4mp_self_signed.crt",
+              "sslKey": "C:/Users/ch4mp/.ssh/bravo-ch4mp_req_key.pem"
+            },
+            "mc-ch4mp": {
+              "browserTarget": "bao-loc-public-client:build:development",
+              "host": "0.0.0.0",
+              "ssl": true,
+              "sslCert": "/Users/ch4mp/.ssh/mc-ch4mp.local_self_signed.crt",
+              "sslKey": "/Users/ch4mp/.ssh/mc-ch4mp.local_req_key.pem"
+            }
+          },
+          "defaultConfiguration": "development"
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "bao-loc-public-client:build"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "polyfills": [
+              "zone.js",
+              "zone.js/testing"
+            ],
+            "tsConfig": "projects/bao-loc-public-client/tsconfig.spec.json",
+            "inlineStyleLanguage": "scss",
+            "assets": [
+              "projects/bao-loc-public-client/src/favicon.ico",
+              "projects/bao-loc-public-client/src/assets"
+            ],
+            "styles": [
+              "@angular/material/prebuilt-themes/indigo-pink.css",
+              "projects/bao-loc-public-client/src/styles.scss"
+            ],
+            "scripts": [],
+            "webWorkerTsConfig": "projects/bao-loc-public-client/tsconfig.worker.json"
+          }
+        }
+      }
+    },
+    "bao-loc-bff": {
+      "projectType": "application",
+      "schematics": {
+        "@schematics/angular:component": {
+          "inlineTemplate": true,
+          "inlineStyle": true,
+          "style": "scss",
+          "skipTests": true
+        },
+        "@schematics/angular:class": {
+          "skipTests": true
+        },
+        "@schematics/angular:directive": {
+          "skipTests": true
+        },
+        "@schematics/angular:guard": {
+          "skipTests": true
+        },
+        "@schematics/angular:interceptor": {
+          "skipTests": true
+        },
+        "@schematics/angular:pipe": {
+          "skipTests": true
+        },
+        "@schematics/angular:resolver": {
+          "skipTests": true
+        },
+        "@schematics/angular:service": {
+          "skipTests": true
+        }
+      },
+      "root": "projects/bao-loc-bff",
+      "sourceRoot": "projects/bao-loc-bff/src",
+      "prefix": "app",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "baseHref": "/ui/bff/",
+            "outputPath": "dist/bao-loc-bff",
+            "index": "projects/bao-loc-bff/src/index.html",
+            "main": "projects/bao-loc-bff/src/main.ts",
+            "polyfills": [
+              "zone.js"
+            ],
+            "tsConfig": "projects/bao-loc-bff/tsconfig.app.json",
+            "inlineStyleLanguage": "scss",
+            "assets": [
+              "projects/bao-loc-bff/src/favicon.ico",
+              "projects/bao-loc-bff/src/assets"
+            ],
+            "styles": [
+              "@angular/material/prebuilt-themes/indigo-pink.css",
+              "projects/bao-loc-bff/src/styles.scss"
+            ],
+            "scripts": [],
+            "webWorkerTsConfig": "projects/bao-loc-bff/tsconfig.worker.json"
+          },
+          "configurations": {
+            "production": {
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "500kb",
+                  "maximumError": "1mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "2kb",
+                  "maximumError": "4kb"
+                }
+              ],
+              "outputHashing": "all"
+            },
+            "development": {
+              "buildOptimizer": false,
+              "optimization": false,
+              "vendorChunk": true,
+              "extractLicenses": false,
+              "sourceMap": true,
+              "namedChunks": true
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "configurations": {
+            "production": {
+              "browserTarget": "bao-loc-bff:build:production"
+            },
+            "development": {
+              "browserTarget": "bao-loc-bff:build:development",
+              "host": "0.0.0.0"
+            },
+            "bravo-ch4mp": {
+              "browserTarget": "bao-loc-bff:build:development",
+              "host": "0.0.0.0",
+              "ssl": true,
+              "sslCert": "C:/Users/ch4mp/.ssh/bravo-ch4mp_self_signed.crt",
+              "sslKey": "C:/Users/ch4mp/.ssh/bravo-ch4mp_req_key.pem"
+            },
+            "mc-ch4mp": {
+              "browserTarget": "bao-loc-bff:build:development",
+              "host": "0.0.0.0",
+              "ssl": true,
+              "sslCert": "/Users/ch4mp/.ssh/mc-ch4mp.local_self_signed.crt",
+              "sslKey": "/Users/ch4mp/.ssh/mc-ch4mp.local_req_key.pem"
+            }
+          },
+          "defaultConfiguration": "development"
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "bao-loc-bff:build"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "polyfills": [
+              "zone.js",
+              "zone.js/testing"
+            ],
+            "tsConfig": "projects/bao-loc-bff/tsconfig.spec.json",
+            "inlineStyleLanguage": "scss",
+            "assets": [
+              "projects/bao-loc-bff/src/favicon.ico",
+              "projects/bao-loc-bff/src/assets"
+            ],
+            "styles": [
+              "@angular/material/prebuilt-themes/indigo-pink.css",
+              "projects/bao-loc-bff/src/styles.scss"
+            ],
+            "scripts": [],
+            "webWorkerTsConfig": "projects/bao-loc-bff/tsconfig.worker.json"
+          }
+        }
+      }
+    },
+    "@c4-soft/gateway-api": {
+      "projectType": "library",
+      "root": "projects/c4-soft/gateway-api",
+      "sourceRoot": "projects/c4-soft/gateway-api/src",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:ng-packagr",
+          "options": {
+            "project": "projects/c4-soft/gateway-api/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/c4-soft/gateway-api/tsconfig.lib.prod.json"
+            },
+            "development": {
+              "tsConfig": "projects/c4-soft/gateway-api/tsconfig.lib.json"
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "tsConfig": "projects/c4-soft/gateway-api/tsconfig.spec.json",
+            "polyfills": [
+              "zone.js",
+              "zone.js/testing"
+            ]
+          }
+        }
+      }
+    },
+    "@c4-soft/bao-loc-api": {
+      "projectType": "library",
+      "root": "projects/c4-soft/bao-loc-api",
+      "sourceRoot": "projects/c4-soft/bao-loc-api/src",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:ng-packagr",
+          "options": {
+            "project": "projects/c4-soft/bao-loc-api/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/c4-soft/bao-loc-api/tsconfig.lib.prod.json"
+            },
+            "development": {
+              "tsConfig": "projects/c4-soft/bao-loc-api/tsconfig.lib.json"
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "tsConfig": "projects/c4-soft/bao-loc-api/tsconfig.spec.json",
+            "polyfills": [
+              "zone.js",
+              "zone.js/testing"
+            ]
+          }
+        }
+      }
+    },
+    "@c4-soft/bao-loc-commons": {
+      "projectType": "library",
+      "root": "projects/c4-soft/bao-loc-commons",
+      "sourceRoot": "projects/c4-soft/bao-loc-commons/src",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:ng-packagr",
+          "options": {
+            "project": "projects/c4-soft/bao-loc-commons/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/c4-soft/bao-loc-commons/tsconfig.lib.prod.json"
+            },
+            "development": {
+              "tsConfig": "projects/c4-soft/bao-loc-commons/tsconfig.lib.json"
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "tsConfig": "projects/c4-soft/bao-loc-commons/tsconfig.spec.json",
+            "polyfills": [
+              "zone.js",
+              "zone.js/testing"
+            ]
+          }
+        }
+      }
+    },
+    "@c4-soft/bao-loc-domain": {
+      "projectType": "library",
+      "root": "projects/c4-soft/bao-loc-domain",
+      "sourceRoot": "projects/c4-soft/bao-loc-domain/src",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:ng-packagr",
+          "options": {
+            "project": "projects/c4-soft/bao-loc-domain/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/c4-soft/bao-loc-domain/tsconfig.lib.prod.json"
+            },
+            "development": {
+              "tsConfig": "projects/c4-soft/bao-loc-domain/tsconfig.lib.json"
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "tsConfig": "projects/c4-soft/bao-loc-domain/tsconfig.spec.json",
+            "polyfills": [
+              "zone.js",
+              "zone.js/testing"
+            ]
+          }
+        }
+      }
+    }
+  }
+}

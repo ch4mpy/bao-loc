@@ -1,0 +1,17 @@
+.gitignore
+api.module.ts
+api/api.ts
+api/solutions.service.ts
+api/solutions.serviceInterface.ts
+api/users.service.ts
+api/users.serviceInterface.ts
+configuration.ts
+encoder.ts
+git_push.sh
+index.ts
+model/models.ts
+model/solutionResponse.ts
+model/solutionUpdateRequest.ts
+model/userRolesDto.ts
+param.ts
+variables.ts

@@ -1,0 +1,4 @@
+# Stage 1
+FROM nginx
+COPY ./dist/bao-loc-public-client/* /usr/share/nginx/html/ui/public-client/
+COPY ./nginx-public-client.conf /etc/nginx/nginx.conf
