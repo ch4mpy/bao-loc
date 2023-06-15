@@ -9,7 +9,7 @@
     "gateway-api:generate": "npx openapi-generator-cli generate -i ./bao-loc-gateway.openapi.json -g typescript-angular --type-mappings AnyType=any --additional-properties=apiModulePrefix=Gateway,configurationPrefix=Gateway,serviceSuffix=Api,npmName=@c4-soft/gateway-api,npmVersion=0.0.1,enumPropertyNaming=camelCase,supportsES6=true,withInterfaces=true --remove-operation-id-prefix -o projects/c4-soft/gateway-api",
     "gateway-api:build": "npm run gateway-api:generate && npm run ng -- build @c4-soft/gateway-api --configuration production",
     "start": "ng serve",
-    "build": "ng build",
+    "build": "npm i && ng build @c4-soft/bao-loc-domain && ng build @c4-soft/bao-loc-commons && ng build bao-loc-public-client && ng build bao-loc-bff",
     "watch": "ng build --watch --configuration development",
     "test": "ng test"
   },

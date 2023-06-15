@@ -62,11 +62,7 @@ jobs:
       - name: Build Angular app
         run: |
           cd ./angular-ui
-          npm i
-          npm run build @c4-soft/bao-loc-domain
-          npm run build @c4-soft/bao-loc-commons
-          npm run build bao-loc-bff
-          npm run build bao-loc-public-client
+          npm run build
 
       - name: Docker Build-Tag-Push BFF Angular UI
         uses: docker/build-push-action@v4

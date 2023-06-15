@@ -85,7 +85,7 @@ com:
         # Global OAuth2 configuration
         issuers:
         - location: ${oauth2-issuer}
-          username-claim: $['https://c4-soft.com/spring-addons']['name']
+          username-claim: $.preferred_username
           authorities:
           - path: roles
           - path: permissions
